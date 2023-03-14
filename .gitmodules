@@ -1,0 +1,6 @@
+[submodule "db_engines_ranking_table_crawling"]
+	path = db_engines_ranking_table_crawling
+	url = git@github.com:birdflyi/db_engines_ranking_table_crawling.git
+[submodule "dbdbio_OSDB_info_crawling"]
+	path = dbdbio_OSDB_info_crawling
+	url = git@github.com:birdflyi/dbdbio_OSDB_info_crawling.git
