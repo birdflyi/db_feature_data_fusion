@@ -1,0 +1,4 @@
+﻿tables,colname1,colname2,colname3,colname4,colname5,colname6,colname7,colname8,colname9,colname10,colname11,colname12,colname13,colname14,colname15
+dbdb.io,DBMS,Data_Model_mapping,Written in,Query Interface,System Architecture,Developer,Country of Origin,Start Year,End Year,Project Type,Licenses,github_repo_link,open_source_license,,
+DB-Engines,DBMS,category_label,,,,Developer,,initial_release_recalc,current_release_recalc,,License_info,github_repo_link,open_source_license,Score_Feb-2023,Rank_Feb-2023
+merged_table,DBMS,category_label,Written in,Query Interface,System Architecture,Developer,Country of Origin,initial_release_year,current_release_year,Project Type,License_info,github_repo_link,open_source_license,Score_Feb-2023,Rank_Feb-2023
