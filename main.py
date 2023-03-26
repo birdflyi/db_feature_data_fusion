@@ -110,4 +110,4 @@ if __name__ == '__main__':
                                 df_dbfeatfusion_dbname_mapping_manulabeled, save_path=tar_dbfeatfusion_path,
                                 df_feature_mapping=df_settings_colnames_mapping, input_key_colname="key",
                                 use_columns_merged=None, encoding=encoding)
-    # Step3: Solve conflicts in the tar_dbfeatfusion_path manually.
+    # Step4: Solve conflicts in the tar_dbfeatfusion_path manually.
