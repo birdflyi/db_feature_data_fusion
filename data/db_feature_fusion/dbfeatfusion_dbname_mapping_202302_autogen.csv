@@ -14,7 +14,7 @@ alasql,alasql,alasql,Normal,Y_auto
 alchemydb,alchemydb,,X_Single,Y_auto
 altibase,altibase,altibase,Normal,Y_auto
 angstromdb,angstromdb,,X_Single,Y_auto
-antdb,antdb,,X_Single,Y_auto
+antdb,antdb,antdb,Normal,Y_auto
 antidote,antidote,,X_Single,Y_auto
 aodbm,aodbm,,X_Single,Y_auto
 arakoon,arakoon,,X_Single,Y_auto
@@ -163,7 +163,7 @@ graphik,graphik,,X_Single,Y_auto
 graviton,graviton,,X_Single,Y_auto
 greatsql,greatsql,,X_Single,Y_auto
 greenplum,greenplum,greenplum,Normal,Y_auto
-greptimedb,greptimedb,,X_Single,Y_auto
+greptimedb,greptimedb,greptimedb,Normal,Y_auto
 griddb,griddb,griddb,Normal,Y_auto
 gun,gun,,X_Single,Y_auto
 h-store,h-store,,X_Single,Y_auto
@@ -328,7 +328,7 @@ refinedb,refinedb,,X_Single,Y_auto
 rel,rel,,X_Single,Y_auto
 relaxo,relaxo,,X_Single,Y_auto
 rethinkdb,rethinkdb,rethinkdb,Normal,Y_auto
-riak,riak,"riak-kv,riak-ts",Multiple,
+riak,riak,riak-kv,Fuzzy,
 risinglight,risinglight,,X_Single,Y_auto
 risingwave,risingwave,,X_Single,Y_auto
 rocksdb,rocksdb,rocksdb,Normal,Y_auto
@@ -423,7 +423,7 @@ veloxdb,veloxdb,,X_Single,Y_auto
 vertexdb,vertexdb,,X_Single,Y_auto
 vespa,vespa,,X_Single,Y_auto
 victoriametrics,victoriametrics,victoriametrics,Normal,Y_auto
-vitess,vitess,,X_Single,Y_auto
+vitess,vitess,vitess,Normal,Y_auto
 viyadb,viyadb,,X_Single,Y_auto
 voldemort,voldemort,project-voldemort,Fuzzy,
 voltdb,voltdb,voltdb,Normal,Y_auto
@@ -448,13 +448,11 @@ zookeeper,zookeeper,,X_Single,Y_auto
 ,,sqlite,Y_Single,Y_auto
 ,,snowflake,Y_Single,Y_auto
 ,,hive,Y_Single,Y_auto
-,,databricks,Y_Single,Y_auto
 ,,hbase,Y_Single,Y_auto
 ,,postgis,Y_Single,Y_auto
 ,,presto,Y_Single,Y_auto
-,,google-cloud-firestore,Y_Single,Y_auto
 ,,opensearch,Y_Single,Y_auto
-,,marklogic,Y_Single,Y_auto
+,,kdb,Y_Single,Y_auto
 ,,graphite,Y_Single,Y_auto
 ,,virtuoso,Y_Single,Y_auto
 ,,ingres,Y_Single,Y_auto
@@ -473,6 +471,7 @@ zookeeper,zookeeper,,X_Single,Y_auto
 ,,gridgain,Y_Single,Y_auto
 ,,spatialite,Y_Single,Y_auto
 ,,nebulagraph,Y_Single,Y_auto
+,,firebolt,Y_Single,Y_auto
 ,,sqljs,Y_Single,Y_auto
 ,,giraph,Y_Single,Y_auto
 ,,msql,Y_Single,Y_auto
@@ -497,12 +496,14 @@ zookeeper,zookeeper,,X_Single,Y_auto
 ,,tokyo-tyrant,Y_Single,Y_auto
 ,,redland,Y_Single,Y_auto
 ,,hugegraph,Y_Single,Y_auto
+,,marqo,Y_Single,Y_auto
 ,,typesense,Y_Single,Y_auto
 ,,tinkergraph,Y_Single,Y_auto
 ,,cubicweb,Y_Single,Y_auto
 ,,speedb,Y_Single,Y_auto
 ,,stsdb,Y_Single,Y_auto
 ,,neventstore,Y_Single,Y_auto
+,,tigris,Y_Single,Y_auto
 ,,sitewhere,Y_Single,Y_auto
 ,,acebase,Y_Single,Y_auto
 ,,dydra,Y_Single,Y_auto

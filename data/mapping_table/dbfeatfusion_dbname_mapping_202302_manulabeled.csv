@@ -14,7 +14,7 @@ alasql,alasql,alasql,Normal,Y_auto
 alchemydb,alchemydb,,X_Single,Y_auto
 altibase,altibase,altibase,Normal,Y_auto
 angstromdb,angstromdb,,X_Single,Y_auto
-antdb,antdb,,X_Single,Y_auto
+antdb,antdb,antdb,Normal,Y_auto
 antidote,antidote,,X_Single,Y_auto
 aodbm,aodbm,,X_Single,Y_auto
 arakoon,arakoon,,X_Single,Y_auto
@@ -163,7 +163,7 @@ graphik,graphik,,X_Single,Y_auto
 graviton,graviton,,X_Single,Y_auto
 greatsql,greatsql,,X_Single,Y_auto
 greenplum,greenplum,greenplum,Normal,Y_auto
-greptimedb,greptimedb,,X_Single,Y_auto
+greptimedb,greptimedb,greptimedb,Normal,Y_auto
 griddb,griddb,griddb,Normal,Y_auto
 gun,gun,,X_Single,Y_auto
 h-store,h-store,,X_Single,Y_auto
@@ -328,7 +328,7 @@ refinedb,refinedb,,X_Single,Y_auto
 rel,rel,,X_Single,Y_auto
 relaxo,relaxo,,X_Single,Y_auto
 rethinkdb,rethinkdb,rethinkdb,Normal,Y_auto
-riak,riak,,Multiple:Normal,Y_ConflictResolved
+riak,riak,,Fuzzy:X_Single,Y
 risinglight,risinglight,,X_Single,Y_auto
 risingwave,risingwave,,X_Single,Y_auto
 rocksdb,rocksdb,rocksdb,Normal,Y_auto
@@ -423,7 +423,7 @@ veloxdb,veloxdb,,X_Single,Y_auto
 vertexdb,vertexdb,,X_Single,Y_auto
 vespa,vespa,,X_Single,Y_auto
 victoriametrics,victoriametrics,victoriametrics,Normal,Y_auto
-vitess,vitess,,X_Single,Y_auto
+vitess,vitess,vitess,Normal,Y_auto
 viyadb,viyadb,,X_Single,Y_auto
 voldemort,voldemort,project-voldemort,Fuzzy:Normal,Y
 voltdb,voltdb,voltdb,Normal,Y_auto
@@ -448,13 +448,11 @@ postgresql,,postgresql,Y_Single,Y_auto
 sqlite,,sqlite,Y_Single,Y_auto
 snowflake,,snowflake,Y_Single,Y_auto
 hive,,hive,Y_Single,Y_auto
-databricks,,databricks,Y_Single,Y_auto
 hbase,,hbase,Y_Single,Y_auto
 postgis,,postgis,Y_Single,Y_auto
 presto,,presto,Y_Single,Y_auto
-google-cloud-firestore,,google-cloud-firestore,Y_Single,Y_auto
 opensearch,,opensearch,Y_Single,Y_auto
-marklogic,,marklogic,Y_Single,Y_auto
+kdb,,kdb,Y_Single,Y_auto
 graphite,,graphite,Y_Single,Y_auto
 virtuoso,,virtuoso,Y_Single,Y_auto
 ingres,,ingres,Y_Single,Y_auto
@@ -473,6 +471,7 @@ geode,,geode,Y_Single,Y_auto
 gridgain,,gridgain,Y_Single,Y_auto
 spatialite,,spatialite,Y_Single,Y_auto
 nebulagraph,,nebulagraph,Y_Single,Y_auto
+firebolt,,firebolt,Y_Single,Y_auto
 sqljs,,sqljs,Y_Single,Y_auto
 giraph,,giraph,Y_Single,Y_auto
 msql,,msql,Y_Single,Y_auto
@@ -497,12 +496,14 @@ openqm,,openqm,Y_Single,Y_auto
 tokyo-tyrant,,tokyo-tyrant,Y_Single,Y_auto
 redland,,redland,Y_Single,Y_auto
 hugegraph,,hugegraph,Y_Single,Y_auto
+marqo,,marqo,Y_Single,Y_auto
 typesense,,typesense,Y_Single,Y_auto
 tinkergraph,,tinkergraph,Y_Single,Y_auto
 cubicweb,,cubicweb,Y_Single,Y_auto
 speedb,,speedb,Y_Single,Y_auto
 stsdb,,stsdb,Y_Single,Y_auto
 neventstore,,neventstore,Y_Single,Y_auto
+tigris,,tigris,Y_Single,Y_auto
 sitewhere,,sitewhere,Y_Single,Y_auto
 acebase,,acebase,Y_Single,Y_auto
 dydra,,dydra,Y_Single,Y_auto
@@ -526,5 +527,4 @@ nsdb,,nsdb,Y_Single,Y_auto
 tkrzw,,tkrzw,Y_Single,Y_auto
 transwarp-stellardb,,transwarp-stellardb,Y_Single,Y_auto
 percona-server-for-mongodb,,percona-server-for-mongodb,:Y_Single,Y_ConflictResolved
-riak-kv,,riak-kv,:Y_Single,Y_ConflictResolved
-riak-ts,,riak-ts,:Y_Single,Y_ConflictResolved
+riak-kv,,riak-kv,:Y_Single,Y

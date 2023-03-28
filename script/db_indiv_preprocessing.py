@@ -62,8 +62,8 @@ def dbengines_feat_preprocessing(src_path, tar_path, **kwargs):
 
 if __name__ == '__main__':
     Base_Dir = pkg_rootdir
-    src_dbdbio_dir = os.path.join(Base_Dir, "dbdbio_OSDB_info_crawling/data/dbdbio_OSDB_list")
-    src_dbengines_dir = os.path.join(Base_Dir, "db_engines_ranking_table_crawling/data/db_engines_ranking_table_full")
+    src_dbdbio_dir = os.path.join(Base_Dir, "dbdbio_OSDB_info_crawling/data/manulabeled")
+    src_dbengines_dir = os.path.join(Base_Dir, "db_engines_ranking_table_crawling/data/manulabeled")
     src_indiv_preprocessing_dir = os.path.join(Base_Dir, "data/db_indiv_preprocessing")
 
     month_yyyyMM = "202302"
@@ -73,8 +73,8 @@ if __name__ == '__main__':
 
     curr_month = TimeFormat(month_yyyyMM, format_time_in_filename, format_time_in_filename)
 
-    src_dbdbio_info_raw_path = os.path.join(src_dbdbio_dir, f"OSDB_info_{month_yyyyMM}_joined.csv")
-    src_dbengines_info_raw_path = os.path.join(src_dbengines_dir, f"ranking_crawling_{month_yyyyMM}_automerged.csv")
+    src_dbdbio_info_raw_path = os.path.join(src_dbdbio_dir, f"OSDB_info_{month_yyyyMM}_joined_manulabled.csv")
+    src_dbengines_info_raw_path = os.path.join(src_dbengines_dir, f"ranking_crawling_{month_yyyyMM}_automerged_manulabled.csv")
     src_dbdbio_info_path = os.path.join(src_indiv_preprocessing_dir,
                                         f"OSDB_info_{month_yyyyMM}_joined_preprocessed.csv")
     src_dbengines_info_path = os.path.join(src_indiv_preprocessing_dir,
