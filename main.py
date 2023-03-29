@@ -42,8 +42,8 @@ if __name__ == '__main__':
     curr_month = TimeFormat(month_yyyyMM, format_time_in_filename, format_time_in_filename)
 
     # Step1: preprocessing
-    src_dbdbio_info_raw_path = os.path.join(src_dbdbio_dir, f"OSDB_info_{month_yyyyMM}_joined_manulabled.csv")
-    src_dbengines_info_raw_path = os.path.join(src_dbengines_dir, f"ranking_crawling_{month_yyyyMM}_automerged_manulabled.csv")
+    src_dbdbio_info_raw_path = os.path.join(src_dbdbio_dir, f"OSDB_info_{month_yyyyMM}_joined_manulabeled.csv")
+    src_dbengines_info_raw_path = os.path.join(src_dbengines_dir, f"ranking_crawling_{month_yyyyMM}_automerged_manulabeled.csv")
     src_dbdbio_info_path = os.path.join(src_indiv_preprocessing_dir, f"OSDB_info_{month_yyyyMM}_joined_preprocessed.csv")
     src_dbengines_info_path = os.path.join(src_indiv_preprocessing_dir, f"ranking_crawling_{month_yyyyMM}_automerged_preprocessed.csv")
 
