@@ -7,6 +7,7 @@
 # @File   : main.py 
 
 import os
+import shutil
 import sys
 
 if '__file__' not in globals():
@@ -36,10 +37,12 @@ tar_dbfeatfusion_dir = os.path.join(Base_Dir, "data/db_feature_fusion")
 
 
 if __name__ == '__main__':
-    month_yyyyMM = "202302"
+    month_yyyyMM = "202303"
     format_time_in_filename = "%Y%m"
     format_time_in_colname = "%b-%Y"
     curr_month = TimeFormat(month_yyyyMM, format_time_in_filename, format_time_in_filename)
+    colname_202302 = TimeFormat("202302", format_time_in_filename, format_time_in_filename).get_last_month(format_time_in_colname)
+    colname_curr_month = curr_month.get_curr_month(format_time_in_colname)
 
     # Step1: preprocessing
     src_dbdbio_info_raw_path = os.path.join(src_dbdbio_dir, f"OSDB_info_{month_yyyyMM}_joined_manulabeled.csv")
@@ -48,7 +51,7 @@ if __name__ == '__main__':
     src_dbengines_info_path = os.path.join(src_indiv_preprocessing_dir, f"ranking_crawling_{month_yyyyMM}_automerged_preprocessed.csv")
 
     dbdbio_info_dtype = {'Start Year': str, 'End Year': str}
-    dbengines_info_dtype = {'initial_release_recalc': str, 'current_release_recalc': str, f'Rank_{curr_month.get_curr_month(format_time_in_colname)}': str}
+    dbengines_info_dtype = {'initial_release_recalc': str, 'current_release_recalc': str, f'Rank_{colname_curr_month}': str}
 
     dbdbio_feat_preprocessing(src_dbdbio_info_raw_path, src_dbdbio_info_path, dtype=dbdbio_info_dtype)
     dbengines_feat_preprocessing(src_dbengines_info_raw_path, src_dbengines_info_path, dtype=dbengines_info_dtype)
@@ -74,40 +77,52 @@ if __name__ == '__main__':
     merged_key_alias = "DBMS_uriform"
     match_state_field = "match_state"
     label_colname = "manu_labeled_flag"
-    merge_key_dbdbio_dbengines(df_dbdbio_info_platform_filtered, df_dbengines_info_platform_filtered,
-                               save_path=tar_dbfeatfusion_dbname_mapping_autogen_path,
-                               on_key_pair=key_db_info_pair, key_avoid_conf_prefixes=key_avoid_conf_prefixes,
-                               merged_key_alias=merged_key_alias, match_state_field=match_state_field, label=label_colname)
 
-    CONFLICT_RESOLVED = True
-    # manulabeled dbname_mapping
     src_dbfeatfusion_dbname_mapping_manulabeled_path = os.path.join(Base_Dir, f"data/mapping_table/dbfeatfusion_dbname_mapping_{month_yyyyMM}_manulabeled.csv")
-    if CONFLICT_RESOLVED:
-        df_dbfeatfusion_dbname_mapping_manulabeled = pd.read_csv(src_dbfeatfusion_dbname_mapping_manulabeled_path, encoding=encoding, index_col=False)
-        df_dbfeatfusion_dbname_mapping_manulabeled[merged_key_alias] = df_dbfeatfusion_dbname_mapping_manulabeled.apply(
-            lambda df: unique_name_recalc(df[key_dbdbio_prefixed], df[key_dbengines_prefixed]), axis=1)
-        df_dbfeatfusion_dbname_mapping_manulabeled.to_csv(src_dbfeatfusion_dbname_mapping_manulabeled_path, encoding=encoding, index=False)
-        # validate manulabeled
-        assert(all(df_dbfeatfusion_dbname_mapping_manulabeled[label_colname].apply(lambda x: str(x).startswith("Y"))))
-        assert(all(df_dbfeatfusion_dbname_mapping_manulabeled[match_state_field].apply(lambda x: str(x).split(':')[-1] in ["Normal", "X_Single", "Y_Single"])))
+    CONFLICT_RESOLVED = True
+    if not CONFLICT_RESOLVED:
+        merge_key_dbdbio_dbengines(df_dbdbio_info_platform_filtered, df_dbengines_info_platform_filtered,
+                                   save_path=tar_dbfeatfusion_dbname_mapping_autogen_path,
+                                   on_key_pair=key_db_info_pair, key_avoid_conf_prefixes=key_avoid_conf_prefixes,
+                                   merged_key_alias=merged_key_alias, match_state_field=match_state_field, label=label_colname)
+        if not os.path.exists(src_dbfeatfusion_dbname_mapping_manulabeled_path):
+            shutil.copyfile(src=tar_dbfeatfusion_dbname_mapping_autogen_path, dst=src_dbfeatfusion_dbname_mapping_manulabeled_path)
+            print(f"{src_dbfeatfusion_dbname_mapping_manulabeled_path} initialized!")
     else:
-        raise ValueError(f"StateError! Please manually label the 'Fuzzy' and 'Multiple' Matched records in file {tar_dbfeatfusion_dbname_mapping_autogen_path}, "
-                         f"save it to the path: {src_dbfeatfusion_dbname_mapping_manulabeled_path}, and set CONFLICT_RESOLVED = True.")
+        # manulabeled dbname_mapping
+        state_error_msg = f"StateError! Please set CONFLICT_RESOLVED = False, then manually label the 'Fuzzy' and 'Multiple' Matched records in file {tar_dbfeatfusion_dbname_mapping_autogen_path}, " \
+                          f"save it to the path: {src_dbfeatfusion_dbname_mapping_manulabeled_path}. Finally, set CONFLICT_RESOLVED = True."
+        try:
+            df_dbfeatfusion_dbname_mapping_manulabeled = pd.read_csv(src_dbfeatfusion_dbname_mapping_manulabeled_path, encoding=encoding, index_col=False)
+            df_dbfeatfusion_dbname_mapping_manulabeled[merged_key_alias] = df_dbfeatfusion_dbname_mapping_manulabeled.apply(
+                lambda df: unique_name_recalc(df[key_dbdbio_prefixed], df[key_dbengines_prefixed]), axis=1)
+            df_dbfeatfusion_dbname_mapping_manulabeled.to_csv(src_dbfeatfusion_dbname_mapping_manulabeled_path, encoding=encoding, index=False)
+            # validate manulabeled
+            assert(all(df_dbfeatfusion_dbname_mapping_manulabeled[label_colname].apply(lambda x: str(x).startswith("Y"))))
+            assert(all(df_dbfeatfusion_dbname_mapping_manulabeled[match_state_field].apply(lambda x: str(x).split(':')[-1] in ["Normal", "X_Single", "Y_Single"])))
+        except FileNotFoundError or AssertionError as e:
+            raise Exception(state_error_msg)
 
-    # Step3: DBMS features fusion
-    settings_colnames_mapping_path = os.path.join(Base_Dir, "data/mapping_table/colnames_mapping.csv")
-    df_settings_colnames_mapping = pd.read_csv(settings_colnames_mapping_path, encoding=encoding, index_col="tables")
+        # Step3: DBMS features fusion
+        settings_colnames_mapping_path = os.path.join(Base_Dir, "data/mapping_table/colnames_mapping.csv")
+        df_settings_colnames_mapping = pd.read_csv(settings_colnames_mapping_path, encoding=encoding, index_col="tables")
+        df_settings_colnames_mapping = df_settings_colnames_mapping.apply(lambda x: x.str.replace(colname_202302, colname_curr_month))
 
-    tar_dbfeatfusion_path = os.path.join(tar_dbfeatfusion_dir, f"dbfeatfusion_records_{month_yyyyMM}_automerged.csv")
+        tar_dbfeatfusion_path = os.path.join(tar_dbfeatfusion_dir, f"dbfeatfusion_records_{month_yyyyMM}_automerged.csv")
 
-    df_dbfeatfusion_dbname_mapping_manulabeled = pd.read_csv(src_dbfeatfusion_dbname_mapping_manulabeled_path, encoding=encoding, index_col=False)
-    dbdbio_manulabed_flag_series = df_dbdbio_info_platform_filtered[key_dbdbio_info].apply(lambda x: x in df_dbfeatfusion_dbname_mapping_manulabeled[key_dbdbio_prefixed].values)
-    dbengines_manulabed_flag_series = df_dbengines_info_platform_filtered[key_dbengines_info].apply(lambda x: x in df_dbfeatfusion_dbname_mapping_manulabeled[key_dbengines_prefixed].values)
-    df_dbdbio_info_platform_filtered_manulabed = df_dbdbio_info_platform_filtered[dbdbio_manulabed_flag_series.values]
-    df_dbengines_info_platform_filtered_manulabed = df_dbengines_info_platform_filtered[dbengines_manulabed_flag_series]
+        df_dbfeatfusion_dbname_mapping_manulabeled = pd.read_csv(src_dbfeatfusion_dbname_mapping_manulabeled_path, encoding=encoding, index_col=False)
+        dbdbio_manulabed_flag_series = df_dbdbio_info_platform_filtered[key_dbdbio_info].apply(lambda x: x in df_dbfeatfusion_dbname_mapping_manulabeled[key_dbdbio_prefixed].values)
+        dbengines_manulabed_flag_series = df_dbengines_info_platform_filtered[key_dbengines_info].apply(lambda x: x in df_dbfeatfusion_dbname_mapping_manulabeled[key_dbengines_prefixed].values)
+        df_dbdbio_info_platform_filtered_manulabed = df_dbdbio_info_platform_filtered[dbdbio_manulabed_flag_series.values]
+        df_dbengines_info_platform_filtered_manulabed = df_dbengines_info_platform_filtered[dbengines_manulabed_flag_series]
 
-    merge_info_dbdbio_dbengines(df_dbdbio_info_platform_filtered_manulabed, df_dbengines_info_platform_filtered_manulabed,
-                                df_dbfeatfusion_dbname_mapping_manulabeled, save_path=tar_dbfeatfusion_path,
-                                df_feature_mapping=df_settings_colnames_mapping, input_key_colname="key",
-                                use_columns_merged=None, encoding=encoding)
-    # Step4: Solve conflicts in the tar_dbfeatfusion_path manually.
+        merge_info_dbdbio_dbengines(df_dbdbio_info_platform_filtered_manulabed, df_dbengines_info_platform_filtered_manulabed,
+                                    df_dbfeatfusion_dbname_mapping_manulabeled, save_path=tar_dbfeatfusion_path,
+                                    df_feature_mapping=df_settings_colnames_mapping, input_key_colname="key",
+                                    use_columns_merged=None, encoding=encoding)
+
+        # Step4: Solve conflicts in the tar_dbfeatfusion_path manually.
+        tar_dbfeatfusion_records_manulabeled_path = os.path.join(Base_Dir, f"data/manulabeled/dbfeatfusion_records_{month_yyyyMM}_automerged_manulabeled.csv")
+        if not os.path.exists(tar_dbfeatfusion_records_manulabeled_path):
+            shutil.copyfile(src=tar_dbfeatfusion_path, dst=tar_dbfeatfusion_records_manulabeled_path)
+            print(f"{tar_dbfeatfusion_records_manulabeled_path} initialized!")
