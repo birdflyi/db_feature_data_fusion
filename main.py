@@ -41,7 +41,7 @@ if __name__ == '__main__':
     format_time_in_filename = "%Y%m"
     format_time_in_colname = "%b-%Y"
     curr_month = TimeFormat(month_yyyyMM, format_time_in_filename, format_time_in_filename)
-    colname_202302 = TimeFormat("202302", format_time_in_filename, format_time_in_filename).get_last_month(format_time_in_colname)
+    colname_202302 = TimeFormat("202302", format_time_in_filename, format_time_in_filename).get_curr_month(format_time_in_colname)
     colname_curr_month = curr_month.get_curr_month(format_time_in_colname)
 
     # Step1: preprocessing
@@ -79,8 +79,8 @@ if __name__ == '__main__':
     label_colname = "manu_labeled_flag"
 
     src_dbfeatfusion_dbname_mapping_manulabeled_path = os.path.join(Base_Dir, f"data/mapping_table/dbfeatfusion_dbname_mapping_{month_yyyyMM}_manulabeled.csv")
-    CONFLICT_RESOLVED = True
-    if not CONFLICT_RESOLVED:
+    DBNAME_MAPPING_CONFLICT_RESOLVED = True
+    if not DBNAME_MAPPING_CONFLICT_RESOLVED:
         merge_key_dbdbio_dbengines(df_dbdbio_info_platform_filtered, df_dbengines_info_platform_filtered,
                                    save_path=tar_dbfeatfusion_dbname_mapping_autogen_path,
                                    on_key_pair=key_db_info_pair, key_avoid_conf_prefixes=key_avoid_conf_prefixes,
@@ -123,6 +123,7 @@ if __name__ == '__main__':
 
         # Step4: Solve conflicts in the tar_dbfeatfusion_path manually.
         tar_dbfeatfusion_records_manulabeled_path = os.path.join(Base_Dir, f"data/manulabeled/dbfeatfusion_records_{month_yyyyMM}_automerged_manulabeled.csv")
-        if not os.path.exists(tar_dbfeatfusion_records_manulabeled_path):
+        RESET_FINAL_TABLE_TO_AUTOMERGED = False
+        if RESET_FINAL_TABLE_TO_AUTOMERGED or not os.path.exists(tar_dbfeatfusion_records_manulabeled_path):
             shutil.copyfile(src=tar_dbfeatfusion_path, dst=tar_dbfeatfusion_records_manulabeled_path)
             print(f"{tar_dbfeatfusion_records_manulabeled_path} initialized!")
