@@ -139,7 +139,8 @@ def unique_name_recalc(dbdbio_s, dbengines_s):
 
 def merge_info_dbdbio_dbengines(df1, df2, df_feat_mapping_manulabeled, save_path, df_feature_mapping,
                                 input_key_colname="key", key_avoid_conf_prefixes=("X_", "Y_"),
-                                use_columns_merged=None, conflict_delimiter="#dbdbio>|<dbengines#", encoding="utf-8"):
+                                use_columns_merged=None, conflict_delimiter="#dbdbio>|<dbengines#",
+                                default_key_when_conflict=0, encoding="utf-8"):
     name_df1, name_df2, name_df_res = tuple(df_feature_mapping.index.values)
     df_res_key = df_feature_mapping[input_key_colname][name_df_res]
     full_columns_feature_mapping_dupkeys = list(df_feat_mapping_manulabeled.columns) + list(df_feature_mapping.loc[name_df_res].values)
@@ -156,6 +157,11 @@ def merge_info_dbdbio_dbengines(df1, df2, df_feat_mapping_manulabeled, save_path
             use_columns_merged_mapping_part.append(c)
     use_columns_mapping_part_flags = [c in use_columns_merged for c in df_feature_mapping.loc[name_df_res].values]
     use_columns_mapping_table = df_feature_mapping.columns[use_columns_mapping_part_flags].values
+
+    resolve_conflict_default_states = [-1, 0, 1]
+    if default_key_when_conflict not in resolve_conflict_default_states:
+        raise ValueError(f"The default_key_when_conflict must be in {resolve_conflict_default_states}: "
+                         f"0 for using the df1 key, 1 for using the df2 key, -1 for keep both df1 key and df2 key with conflict_delimiter!")
 
     df_res = copy.deepcopy(df_feat_mapping_manulabeled)
     key_df1_prefixed = ""
@@ -226,7 +232,12 @@ def merge_info_dbdbio_dbengines(df1, df2, df_feat_mapping_manulabeled, save_path
                 except KeyError:
                     temp_item_df2 = np.nan
                 if pd.notna(temp_item_df1) and pd.notna(temp_item_df2):
-                    if temp_item_df1 == temp_item_df2:
+                    if key_column_on_process:
+                        if default_key_when_conflict < 0:
+                            v = str(temp_item_df1) + conflict_delimiter + str(temp_item_df2)
+                        else:
+                            v = [temp_item_df1, temp_item_df2][default_key_when_conflict]
+                    elif temp_item_df1 == temp_item_df2:
                         v = temp_item_df1
                     else:
                         v = str(temp_item_df1) + conflict_delimiter + str(temp_item_df2)
