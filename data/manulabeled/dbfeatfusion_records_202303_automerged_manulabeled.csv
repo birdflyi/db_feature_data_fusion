@@ -77,7 +77,7 @@ column,column,,X_Single,Y_auto,Column,Relational,Go,Custom API,Embedded,Roman At
 comdb2,comdb2,comdb2,Normal,Y_auto,Comdb2,Relational,C,SQL,,Bloomberg#dbdbio>|<dbengines#Bloomberg Finance L.P.,US,2004,,Open Source,Apache v2.0,bloomberg/comdb2,Y,0.48,278
 compass,compass,,X_Single,Y_auto,Compass,"Document,Object oriented",Java,Custom API,Shared-Memory,Shay Banon,GB,2006,,Open Source,Apache v2,kimchy/compass,Y,,
 composedb,composedb,,X_Single,Y_auto,ComposeDB,Graph,TypeScript,GraphQL,,3Box Labs,IE,2022,,Open Source,"Apache v2,MIT",ceramicstudio/js-composedb,Y,,
-computedb,computedb,tibco-computedb,Fuzzy:Normal,Y,Tibco ComputeDB,Relational,Java,SQL,,Tibco,US,2015,,"Commercial,Open Source",Apache v2.0,TIBCOSoftware/snappydata,Y,0.27,318
+computedb,computedb,tibco-computedb,Fuzzy:Normal,Y,ComputeDB,Relational,Java,SQL,,Tibco,US,2015,,"Commercial,Open Source",Apache v2,SnappyDataInc/snappydata,Y,,
 concourse,concourse,,X_Single,Y_auto,Concourse,Document,Java,Custom API,,Cinchapi Inc.,US,2012,,"Commercial,Open Source",Apache v2,cinchapi/concourse,Y,,
 condensation,condensation,,X_Single,Y_auto,Condensation,Object oriented,Java,Custom API,,,CH,2020,,Open Source,Apache v2,CondensationDB/Condensation-java,Y,,
 consus,consus,,X_Single,Y_auto,Consus,Key-value,C++,,,Cornell University,US,2015,,"Academic,Open Source",BSD,rescrv/Consus,Y,,
@@ -479,9 +479,7 @@ spatialite,,spatialite,Y_Single,Y_auto,SpatiaLite,Spatial DBMS,,,,Alessandro Fur
 nebulagraph,,nebulagraph,Y_Single,Y_auto,NebulaGraph,Graph,,,,Vesoft Inc.,,2019,,,Apache Version 2.0 + Common Clause 1.0,vesoft-inc/nebula,Y,1.83,150
 firebolt,,firebolt,Y_Single,Y_auto,Firebolt,Relational,,,,Firebolt Analytics Inc.,,2020,,,,firebolt-db/firebolt-python-sdk,N,1.74,159
 matisse,,matisse,Y_Single,Y_auto,Matisse,Object oriented,,,,Matisse Software Inc.,,1986,,,free developer license available,zhihu/Matisse,N,1.6,164
-gtm,,gtm,Y_Single,Y_auto,GT.M,Key-value,,,,,,1986,2021,,,-,N,1.59,165
 giraph,,giraph,Y_Single,Y_auto,Giraph,Graph,,,,,,2013,2020,,Apache Version 2,apache/giraph,Y,1.55,168
-msql,,msql,Y_Single,Y_auto,mSQL,Relational,,,,Hughes Technologies,,1994,2021,,free licenses can be provided,-,N,1.49,173
 sqljs,,sqljs,Y_Single,Y_auto,SQL.JS,Relational,,,,Alon Zakai,,2012,,,,sql-js/sql.js,Y,1.34,183
 eventstoredb,,eventstoredb,Y_Single,Y_auto,EventStoreDB,Event,,,,Event Store Limited,,2012,2021,,,EventStore/EventStore,Y,1.29,185
 perst,,perst,Y_Single,Y_auto,Perst,Object oriented,,,,,,2003,,,commercial license available,The-Alchemist/perst,Y,1.27,186
@@ -506,7 +504,6 @@ hugegraph,,hugegraph,Y_Single,Y_auto,HugeGraph,Graph,,,,Baidu,,2018,,,Apache Ver
 marqo,,marqo,Y_Single,Y_auto,Marqo,Search engine,,,,,,2022,,,Apache Version 2.0,marqo-ai/marqo,Y,0.37,298
 speedb,,speedb,Y_Single,Y_auto,Speedb,Key-value,,,,Speedb,,2020,,,Apache Version 2.0; commercial license available,speedb-io/speedb,Y,0.34,301
 tinkergraph,,tinkergraph,Y_Single,Y_auto,TinkerGraph,Graph,,,,,,2009,,,Apache 2.0,apache/tinkerpop,Y,0.34,302
-cubicweb,,cubicweb,Y_Single,Y_auto,CubicWeb,RDF,,,,Logilab,,2001,2021,,L-GPL,-,Y,0.34,303
 dydra,,dydra,Y_Single,Y_auto,Dydra,RDF,,,,,,2010,,,,dydra/dydra,N,0.3,313
 qdrant,,qdrant,Y_Single,Y_auto,Qdrant,Search engine,,,,Qdrant,,2021,,,Apache Version 2.0,qdrant/qdrant,Y,0.27,320
 neventstore,,neventstore,Y_Single,Y_auto,NEventStore,Event,,,,,,2011,,,MIT-License,NEventStore/NEventStore,Y,0.26,323
@@ -519,7 +516,7 @@ hyperleveldb,,hyperleveldb,Y_Single,Y_auto,HyperLevelDB,Key-value,,,,,,2010,,,,r
 iboxdb,,iboxdb,Y_Single,Y_auto,iBoxDB,Document,,,,,,2013,,,,iboxdb/ftserver,Y,0.19,343
 acebase,,acebase,Y_Single,Y_auto,Acebase,Document,,,,,,2018,,,MIT License,appy-one/acebase,Y,0.19,349
 sitewhere,,sitewhere,Y_Single,Y_auto,SiteWhere,Time Series,,,,SiteWhere,,2010,,,Common Public Attribution License Version 1.0,sitewhere/sitewhere,Y,0.18,350
-raptordb,,raptordb,Y_Single,Y_auto,RaptorDB,Document,,,,,,,,,Apache Version 2,-,Y,0.18,352
+raptordb,,raptordb,Y_Single,Y_auto,RaptorDB,Document,,,,,,,,,Apache Version 2,mgholam/RaptorDB-Document,Y,0.18,352
 kyoto-tycoon,,kyoto-tycoon,Y_Single,Y_auto,Kyoto Tycoon,Key-value,,,,,,2009,,,GPL,AlticeLabsProjects/kyoto,Y,0.16,365
 badger,,badger,Y_Single,Y_auto,Badger,Key-value,,,,DGraph Labs,,2017,,,Apache 2.0,dgraph-io/badger,Y,0.13,371
 hgraphdb,,hgraphdb,Y_Single,Y_auto,HGraphDB,Graph,,,,,,2016,,,Apache 2.0,rayokota/hgraphdb,Y,0.08,375

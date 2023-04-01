@@ -479,9 +479,7 @@ spatialite,,spatialite,Y_Single,Y_auto
 nebulagraph,,nebulagraph,Y_Single,Y_auto
 firebolt,,firebolt,Y_Single,Y_auto
 matisse,,matisse,Y_Single,Y_auto
-gtm,,gtm,Y_Single,Y_auto
 giraph,,giraph,Y_Single,Y_auto
-msql,,msql,Y_Single,Y_auto
 sqljs,,sqljs,Y_Single,Y_auto
 eventstoredb,,eventstoredb,Y_Single,Y_auto
 perst,,perst,Y_Single,Y_auto
@@ -506,7 +504,6 @@ hugegraph,,hugegraph,Y_Single,Y_auto
 marqo,,marqo,Y_Single,Y_auto
 speedb,,speedb,Y_Single,Y_auto
 tinkergraph,,tinkergraph,Y_Single,Y_auto
-cubicweb,,cubicweb,Y_Single,Y_auto
 dydra,,dydra,Y_Single,Y_auto
 qdrant,,qdrant,Y_Single,Y_auto
 neventstore,,neventstore,Y_Single,Y_auto

@@ -123,7 +123,7 @@ def merge_key_dbdbio_dbengines(df1, df2, save_path, on_key_pair, key_avoid_conf_
     # print(f"UnmatchInfo! single_x: {single_x}")
     # print(f"UnmatchInfo! single_y: {single_y}")
 
-    df_res[merged_key_alias] = df_res.apply(lambda df: unique_name_recalc(df[dbdbio_unique_name], df[dbengines_unique_name]), axis=1)
+    df_res[merged_key_alias] = df_res.apply(lambda series: unique_name_recalc(series[dbdbio_unique_name], series[dbengines_unique_name]), axis=1)
     if not len(df_res[merged_key_alias]) == len(set(df_res[merged_key_alias])):
         print(f"MultiValueWarning: Column {merged_key_alias} has duplicate values, please manually check the following values:")
         dup_key_index_dict = {k: tuple(d.index) for k, d in df_res.groupby(merged_key_alias) if len(d) > 1}
@@ -132,8 +132,8 @@ def merge_key_dbdbio_dbengines(df1, df2, save_path, on_key_pair, key_avoid_conf_
     return
 
 
-def unique_name_recalc(dbdbio_s, dbengines_s):
-    s = dbdbio_s if pd.notna(dbdbio_s) else dbengines_s
+def unique_name_recalc(dbdbio_str, dbengines_str):
+    s = dbdbio_str if pd.notna(dbdbio_str) and len(dbdbio_str) else dbengines_str
     return key_uriform(s)
 
 

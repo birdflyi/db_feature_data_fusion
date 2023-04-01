@@ -69,7 +69,7 @@ if __name__ == '__main__':
     df_dbdbio_info = pd.read_csv(src_dbdbio_info_path, encoding=encoding, index_col=False, dtype=dbdbio_info_dtype)
     df_dbengines_info = pd.read_csv(src_dbengines_info_path, encoding=encoding, index_col=False, dtype=dbengines_info_dtype)
     # Filter github open source projects
-    filter_func = lambda x: str(x).startswith("Y")
+    filter_func = lambda x: str(x).startswith("Y") and str(x).lower().find("_notgithub") < 0
     df_dbdbio_info_ghos = df_dbdbio_info[df_dbdbio_info["has_open_source_github_repo"].apply(filter_func)]
     df_dbengines_info_ghos = df_dbengines_info[df_dbengines_info["has_open_source_github_repo"].apply(filter_func)]
     df_dbdbio_info_platform_filtered = df_dbdbio_info_ghos
