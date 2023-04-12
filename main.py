@@ -41,7 +41,7 @@ manulabeled_dir = os.path.join(Base_Dir, "data/manulabeled")
 
 
 if __name__ == '__main__':
-    month_yyyyMM = "202303"
+    month_yyyyMM = "202304"
     format_time_in_filename = "%Y%m"
     format_time_in_colname = "%b-%Y"
     curr_month = TimeFormat(month_yyyyMM, format_time_in_filename, format_time_in_filename)
@@ -95,7 +95,7 @@ if __name__ == '__main__':
                                    merged_key_alias=merged_key_alias, match_state_field=match_state_field, label=label_colname)
         if not os.path.exists(src_dbfeatfusion_dbname_mapping_manulabeled_path):
             shutil.copyfile(src=tar_dbfeatfusion_dbname_mapping_autogen_path, dst=src_dbfeatfusion_dbname_mapping_manulabeled_path)
-            print(f"{src_dbfeatfusion_dbname_mapping_manulabeled_path} initialized!")
+        print(f"{src_dbfeatfusion_dbname_mapping_manulabeled_path} initialized! \n\tPlease run main.py again after labeling it and setting DBNAME_MAPPING_CONFLICT_RESOLVED = True.")
     else:
         # manulabeled dbname_mapping
         state_error_msg = f"StateError! Please set CONFLICT_RESOLVED = False, then manually label the 'Fuzzy' and 'Multiple' Matched records in file {tar_dbfeatfusion_dbname_mapping_autogen_path}, " \

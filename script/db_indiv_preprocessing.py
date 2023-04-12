@@ -49,9 +49,8 @@ def dbdbio_feat_preprocessing(src_path, tar_path, **kwargs):
     return
 
 
-def dbengines_feat_preprocessing(src_path, tar_path, **kwargs):
-    dtype = kwargs.get("dtype")
-    df_dbengines_info = pd.read_csv(src_path, encoding=encoding, index_col=0, dtype=dtype)
+def dbengines_feat_preprocessing(src_path, tar_path, index_col=False, dtype=str):
+    df_dbengines_info = pd.read_csv(src_path, encoding=encoding, index_col=index_col, dtype=dtype)
 
     # preprocessings
     df_dbengines_info["DBMS_uriform"] = df_dbengines_info["DBMS"].apply(key_uriform)
