@@ -27,10 +27,10 @@ import pandas as pd
 
 from db_engines_ranking_table_crawling.script.time_format import TimeFormat
 
-from script.db_indiv_preprocessing import key_uriform
+from script.db_indiv_preprocessing import key_urnform
 
 
-def uriform_validate(str_list, ignore_na=False):
+def urnform_validate(str_list, ignore_na=False):
     str_list = list(str_list)
     flag = True
     for elem in str_list:
@@ -38,12 +38,12 @@ def uriform_validate(str_list, ignore_na=False):
             if ignore_na:
                 pass
             else:
-                print("NAN is not a uriform!")
+                print("NAN is not a urnform!")
                 flag = False
                 break
         else:
-            elem_key_uriform = key_uriform(elem)
-            flag = flag and (str(elem) == str(elem_key_uriform))
+            elem_key_urnform = key_urnform(elem)
+            flag = flag and (str(elem) == str(elem_key_urnform))
     return flag
 
 
@@ -73,8 +73,8 @@ def merge_key_dbdbio_dbengines(df1, df2, save_path, on_key_pair, key_avoid_conf_
     matched_y = []
     single_x = []
     single_y = []
-    assert(uriform_validate(df1[key_df1].values))
-    assert(uriform_validate(df2[key_df2].values))
+    assert(urnform_validate(df1[key_df1].values))
+    assert(urnform_validate(df2[key_df2].values))
     for x_key_str in df1[key_df1]:
         temp_d = copy.deepcopy(init_d)
         temp_d[dbdbio_unique_name] = x_key_str
@@ -134,7 +134,7 @@ def merge_key_dbdbio_dbengines(df1, df2, save_path, on_key_pair, key_avoid_conf_
 
 def unique_name_recalc(dbdbio_str, dbengines_str):
     s = dbdbio_str if pd.notna(dbdbio_str) and len(dbdbio_str) else dbengines_str
-    return key_uriform(s)
+    return key_urnform(s)
 
 
 def merge_info_dbdbio_dbengines(df1, df2, df_feat_mapping_manulabeled, save_path, df_feature_mapping,
@@ -385,12 +385,12 @@ if __name__ == '__main__':
     df_dbengines_info_platform_filtered = df_dbengines_info_ghos
     print(f"len_df_dbdbio_info_platform_filtered: {len(df_dbdbio_info_platform_filtered)}")
     print(f"len_df_dbengines_info_platform_filtered: {len(df_dbengines_info_platform_filtered)}")
-    key_dbdbio_info, key_dbengines_info = "DBMS_uriform", "DBMS_uriform"
+    key_dbdbio_info, key_dbengines_info = "DBMS_urnform", "DBMS_urnform"
     key_db_info_pair = (key_dbdbio_info, key_dbengines_info)
     key_avoid_conf_prefixes = ("X_", "Y_")
     key_dbdbio_prefixed = key_avoid_conf_prefixes[0] + key_db_info_pair[0]
     key_dbengines_prefixed = key_avoid_conf_prefixes[1] + key_db_info_pair[1]
-    merged_key_alias = "DBMS_uriform"
+    merged_key_alias = "DBMS_urnform"
     match_state_field = "match_state"
     label_colname = "manu_labeled_flag"
     merge_key_dbdbio_dbengines(df_dbdbio_info_platform_filtered, df_dbengines_info_platform_filtered,
@@ -426,7 +426,7 @@ if __name__ == '__main__':
     df_dbengines_info_platform_filtered_manulabed = df_dbengines_info_platform_filtered[dbengines_manulabed_flag_series]
 
     # use_columns_merged = None
-    use_columns_merged = ["DBMS_uriform", "X_DBMS_uriform", "Y_DBMS_uriform",
+    use_columns_merged = ["DBMS_urnform", "X_DBMS_urnform", "Y_DBMS_urnform",
                           # "match_state", "manu_labeled_flag",
                           "DBMS_common_name",
                           "category_label", "Written in", "Query Interface", "System Architecture", "Developer",

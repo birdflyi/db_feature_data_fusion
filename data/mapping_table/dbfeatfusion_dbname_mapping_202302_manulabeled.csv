@@ -1,4 +1,4 @@
-DBMS_uriform,X_DBMS_uriform,Y_DBMS_uriform,match_state,manu_labeled_flag
+DBMS_urnform,X_DBMS_urnform,Y_DBMS_urnform,match_state,manu_labeled_flag
 4store,4store,4store,Normal,Y_auto
 abhot,abhot,,X_Single,Y_auto
 accumulo,accumulo,accumulo,Normal,Y_auto

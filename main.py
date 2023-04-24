@@ -76,12 +76,12 @@ if __name__ == '__main__':
     df_dbengines_info_platform_filtered = df_dbengines_info_ghos
     print(f"len_df_dbdbio_info_platform_filtered: {len(df_dbdbio_info_platform_filtered)}")
     print(f"len_df_dbengines_info_platform_filtered: {len(df_dbengines_info_platform_filtered)}")
-    key_dbdbio_info, key_dbengines_info = "DBMS_uriform", "DBMS_uriform"
+    key_dbdbio_info, key_dbengines_info = "DBMS_urnform", "DBMS_urnform"
     key_db_info_pair = (key_dbdbio_info, key_dbengines_info)
     key_avoid_conf_prefixes = ("X_", "Y_")
     key_dbdbio_prefixed = key_avoid_conf_prefixes[0] + key_db_info_pair[0]
     key_dbengines_prefixed = key_avoid_conf_prefixes[1] + key_db_info_pair[1]
-    merged_key_alias = "DBMS_uriform"
+    merged_key_alias = "DBMS_urnform"
     match_state_field = "match_state"
     label_colname = "manu_labeled_flag"
     conflict_delimiter = "#dbdbio>|<dbengines#"
@@ -143,7 +143,7 @@ if __name__ == '__main__':
             valid_contains_conflict_delimiter = lambda x: str(x).find(conflict_delimiter) >= 0
             compare_df_curr_last_update_with_df_last_manulabeled_values(
                 df_curr_automerged, df_last_automerged, df_last_manulabeled, save_path=curr_manulabeled_autogen_path,
-                on_key_col="DBMS_uriform", ignore_cols=[f"Score_{colname_curr_month}", f"Rank_{colname_curr_month}"],
+                on_key_col="DBMS_urnform", ignore_cols=[f"Score_{colname_curr_month}", f"Rank_{colname_curr_month}"],
                 index_filter_func=lambda x: not valid_contains_conflict_delimiter(x),
                 item_filter_func=valid_contains_conflict_delimiter, encoding=encoding)
             print(f"{curr_manulabeled_autogen_path} initialized!")

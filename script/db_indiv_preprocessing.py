@@ -28,12 +28,12 @@ import pandas as pd
 encoding = "utf-8"
 
 
-def key_uriform(key_common_name_str):
+def key_urnform(key_common_name_str):
     key_common_name_str = str(key_common_name_str).lower().replace('.', '')  # remove '.'
     key_common_name_splits = re.split("[- /\():,]", key_common_name_str.lower())
     key_common_name_splits_striped = [s.strip() for s in key_common_name_splits if s.strip() != '']  # deal with the case: "Apache Jena - TDB"
-    key_uriform = '-'.join(key_common_name_splits_striped)
-    return key_uriform
+    key_urnform = '-'.join(key_common_name_splits_striped)
+    return key_urnform
 
 
 def dbdbio_feat_preprocessing(src_path, tar_path, **kwargs):
@@ -41,10 +41,10 @@ def dbdbio_feat_preprocessing(src_path, tar_path, **kwargs):
     df_dbdbio_info = pd.read_csv(src_path, encoding=encoding, index_col=False, dtype=dtype)
     # preprocessings
     pass
-    # DBMS_uriform_recalc = df_dbdbio_info["card_title"].apply(key_uriform)
-    # for i in range(len(DBMS_uriform_recalc)):
-    #     if DBMS_uriform_recalc.values[i] != df_dbdbio_info["DBMS_uriform"].values[i]:
-    #         print(DBMS_uriform_recalc.values[i], df_dbdbio_info["DBMS_uriform"].values[i])
+    # DBMS_urnform_recalc = df_dbdbio_info["card_title"].apply(key_urnform)
+    # for i in range(len(DBMS_urnform_recalc)):
+    #     if DBMS_urnform_recalc.values[i] != df_dbdbio_info["DBMS_urnform"].values[i]:
+    #         print(f"Warning: Auto generated URN{DBMS_urnform_recalc.values[i]} is not matched with {df_dbdbio_info['DBMS_urnform'].values[i]}")
     df_dbdbio_info.to_csv(tar_path, encoding=encoding, index=False)
     return
 
@@ -53,7 +53,7 @@ def dbengines_feat_preprocessing(src_path, tar_path, index_col=False, dtype=str)
     df_dbengines_info = pd.read_csv(src_path, encoding=encoding, index_col=index_col, dtype=dtype)
 
     # preprocessings
-    df_dbengines_info["DBMS_uriform"] = df_dbengines_info["DBMS"].apply(key_uriform)
+    df_dbengines_info["DBMS_urnform"] = df_dbengines_info["DBMS"].apply(key_urnform)
 
     df_dbengines_info.to_csv(tar_path, encoding=encoding, index=False)
     return
