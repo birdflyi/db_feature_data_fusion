@@ -68,10 +68,14 @@ if __name__ == '__main__':
 
     df_dbdbio_info = pd.read_csv(src_dbdbio_info_path, encoding=encoding, index_col=False, dtype=dbdbio_info_dtype)
     df_dbengines_info = pd.read_csv(src_dbengines_info_path, encoding=encoding, index_col=False, dtype=dbengines_info_dtype)
+    # Filter open source projects
+    opensource_license_filter_func = lambda x: str(x["open_source_license"]).startswith("Y")
     # Filter github open source projects
-    filter_func = lambda x: str(x).startswith("Y") and str(x).lower().find("_notgithub") < 0
-    df_dbdbio_info_ghos = df_dbdbio_info[df_dbdbio_info["has_open_source_github_repo"].apply(filter_func)]
-    df_dbengines_info_ghos = df_dbengines_info[df_dbengines_info["has_open_source_github_repo"].apply(filter_func)]
+    has_github_repo_filter_func = lambda x: str(x["has_open_source_github_repo"]).startswith("Y") and str(x["has_open_source_github_repo"]).lower().find("_notgithub") < 0
+    has_github_repo_or_opensource_filter_func = lambda x: opensource_license_filter_func(x) or has_github_repo_filter_func(x)
+    filter_func = has_github_repo_or_opensource_filter_func
+    df_dbdbio_info_ghos = df_dbdbio_info[df_dbdbio_info.apply(filter_func, axis=1)]
+    df_dbengines_info_ghos = df_dbengines_info[df_dbengines_info.apply(filter_func, axis=1)]
     df_dbdbio_info_platform_filtered = df_dbdbio_info_ghos
     df_dbengines_info_platform_filtered = df_dbengines_info_ghos
     print(f"len_df_dbdbio_info_platform_filtered: {len(df_dbdbio_info_platform_filtered)}")
@@ -89,11 +93,12 @@ if __name__ == '__main__':
     src_dbfeatfusion_dbname_mapping_manulabeled_path = os.path.join(mapping_table_dir, f"dbfeatfusion_dbname_mapping_{month_yyyyMM}_manulabeled.csv")
     DBNAME_MAPPING_CONFLICT_RESOLVED = True
     if not DBNAME_MAPPING_CONFLICT_RESOLVED:
+        FORCE_INIT_DBFEATFUSION_DBNAME_MAPPING_MANULABELED = False
         merge_key_dbdbio_dbengines(df_dbdbio_info_platform_filtered, df_dbengines_info_platform_filtered,
                                    save_path=tar_dbfeatfusion_dbname_mapping_autogen_path,
                                    on_key_pair=key_db_info_pair, key_avoid_conf_prefixes=key_avoid_conf_prefixes,
                                    merged_key_alias=merged_key_alias, match_state_field=match_state_field, label=label_colname)
-        if not os.path.exists(src_dbfeatfusion_dbname_mapping_manulabeled_path):
+        if FORCE_INIT_DBFEATFUSION_DBNAME_MAPPING_MANULABELED or not os.path.exists(src_dbfeatfusion_dbname_mapping_manulabeled_path):
             shutil.copyfile(src=tar_dbfeatfusion_dbname_mapping_autogen_path, dst=src_dbfeatfusion_dbname_mapping_manulabeled_path)
         print(f"{src_dbfeatfusion_dbname_mapping_manulabeled_path} initialized! \n\tPlease run main.py again after labeling it and setting DBNAME_MAPPING_CONFLICT_RESOLVED = True.")
     else:
