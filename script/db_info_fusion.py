@@ -379,8 +379,8 @@ if __name__ == '__main__':
     df_dbengines_info = pd.read_csv(src_dbengines_info_path, encoding=encoding, index_col=False, dtype=dbengines_info_dtype)
     # Filter github open source projects
     filter_func = lambda x: str(x).startswith("Y")
-    df_dbdbio_info_ghos = df_dbdbio_info[df_dbdbio_info["has_open_source_github_repo"].apply(filter_func)]
-    df_dbengines_info_ghos = df_dbengines_info[df_dbengines_info["has_open_source_github_repo"].apply(filter_func)]
+    df_dbdbio_info_ghos = df_dbdbio_info[df_dbdbio_info["has_github_repo"].apply(filter_func)]
+    df_dbengines_info_ghos = df_dbengines_info[df_dbengines_info["has_github_repo"].apply(filter_func)]
     df_dbdbio_info_platform_filtered = df_dbdbio_info_ghos
     df_dbengines_info_platform_filtered = df_dbengines_info_ghos
     print(f"len_df_dbdbio_info_platform_filtered: {len(df_dbdbio_info_platform_filtered)}")

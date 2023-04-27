@@ -71,7 +71,7 @@ if __name__ == '__main__':
     # Filter open source projects
     opensource_license_filter_func = lambda x: str(x["open_source_license"]).startswith("Y")
     # Filter github open source projects
-    has_github_repo_filter_func = lambda x: str(x["has_open_source_github_repo"]).startswith("Y") and str(x["has_open_source_github_repo"]).lower().find("_notgithub") < 0
+    has_github_repo_filter_func = lambda x: str(x["has_github_repo"]).startswith("Y") and str(x["has_github_repo"]).lower().find("_notgithub") < 0
     has_github_repo_or_opensource_filter_func = lambda x: opensource_license_filter_func(x) or has_github_repo_filter_func(x)
     filter_func = has_github_repo_or_opensource_filter_func
     df_dbdbio_info_ghos = df_dbdbio_info[df_dbdbio_info.apply(filter_func, axis=1)]
@@ -139,7 +139,7 @@ if __name__ == '__main__':
         dbfeatfusion_records_automerged_path = os.path.join(tar_dbfeatfusion_dir, f"dbfeatfusion_records_{month_yyyyMM}_automerged.csv")
         dbfeatfusion_records_manulabeled_last_month_path = os.path.join(manulabeled_dir, f"dbfeatfusion_records_{last_month_yyyyMM}_automerged_manulabeled.csv")
         tar_dbfeatfusion_records_manulabeled_path = os.path.join(manulabeled_dir, f"dbfeatfusion_records_{month_yyyyMM}_automerged_manulabeled.csv")
-        RESET_FINAL_TABLE_TO_INHERIT_MANULABELED = True
+        RESET_FINAL_TABLE_TO_INHERIT_MANULABELED = False
         if RESET_FINAL_TABLE_TO_INHERIT_MANULABELED:
             df_last_automerged = pd.read_csv(dbfeatfusion_records_automerged_last_month_path, encoding=encoding, index_col=False, dtype=db_last_month_info_fusion_dtype)
             df_curr_automerged = pd.read_csv(dbfeatfusion_records_automerged_path, encoding=encoding, index_col=False, dtype=db_info_fusion_dtype)
