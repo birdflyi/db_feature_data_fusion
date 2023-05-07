@@ -67,7 +67,9 @@ def merge_key_dbdbio_dbengines(df1, df2, save_path, on_key_pair, key_avoid_conf_
     }
     df_res = pd.DataFrame(columns=list(init_d.keys()))
 
+    x_words_concat_y = lambda x, y: ''.join(x).removesuffix('db') == ''.join(y).removesuffix('db')
     x_words_allin_y = lambda x, y: all(x_i in y for x_i in x) if len(x) <= len(y) else False
+    x_like_y = lambda x, y: x_words_concat_y(x, y) or x_words_allin_y(x, y)
 
     matched_x = []
     matched_y = []
@@ -82,22 +84,22 @@ def merge_key_dbdbio_dbengines(df1, df2, save_path, on_key_pair, key_avoid_conf_
         y_key_str_matched = []
         for y_key_str in df2[key_df2]:
             y_key_words = y_key_str.split("-")
-            if x_words_allin_y(x_key_words, y_key_words):
+            if x_like_y(x_key_words, y_key_words):
                 y_key_str_matched.append(y_key_str)
         matched_y += y_key_str_matched
         if len(y_key_str_matched) > 1:
             temp_d[dbengines_unique_name] = ','.join(y_key_str_matched)
             temp_d[match_state_field] = "Multiple"
-            print(f"MultiMatchWarning! x_words_allin_y pair: {x_key_str}, {y_key_str_matched}")
+            print(f"MultiMatchWarning! x_like_y pair: {x_key_str}, {y_key_str_matched}")
         elif len(y_key_str_matched) == 1:
             temp_d[dbengines_unique_name] = y_key_str_matched[0]
             if str(x_key_str).lower() == str(y_key_str_matched[0]).lower():
                 temp_d[match_state_field] = "Normal"
                 temp_d[label] = "Y_auto"  # Y is the abbreviation of YES
-                # print(f"x_words_allin_y pair: {x_key_str}, {y_key_str_matched[0]}")
+                # print(f"x_like_y pair: {x_key_str}, {y_key_str_matched[0]}")
             else:
                 temp_d[match_state_field] = "Fuzzy"
-                print(f"FuzzyMatchWarning! x_words_allin_y pair: {x_key_str}, {y_key_str_matched[0]}")
+                print(f"FuzzyMatchWarning! x_like_y pair: {x_key_str}, {y_key_str_matched[0]}")
         else:
             temp_d[dbengines_unique_name] = None
             temp_d[match_state_field] = "X_Single"

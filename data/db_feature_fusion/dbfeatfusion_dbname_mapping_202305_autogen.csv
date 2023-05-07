@@ -31,7 +31,7 @@ asterixdb,asterixdb,,X_Single,Y_auto
 atlas,atlas,,X_Single,Y_auto
 aviondb,aviondb,,X_Single,Y_auto
 axion,axion,,X_Single,Y_auto
-badgerdb,badgerdb,,X_Single,Y_auto
+badgerdb,badgerdb,badger,Fuzzy,
 bagri,bagri,,X_Single,Y_auto
 baikaldb,baikaldb,,X_Single,Y_auto
 bangdb,bangdb,bangdb,Normal,Y_auto
@@ -155,7 +155,7 @@ etcd,etcd,etcd,Normal,Y_auto
 euclidesdb,euclidesdb,,X_Single,Y_auto
 eva-db,eva-db,,X_Single,Y_auto
 evcache,evcache,,X_Single,Y_auto
-event-store,event-store,,X_Single,Y_auto
+event-store,event-store,eventstoredb,Fuzzy,
 eventql,eventql,,X_Single,Y_auto
 exist-db,exist-db,exist-db,Normal,Y_auto
 extensible-storage-engine,extensible-storage-engine,,X_Single,Y_auto
@@ -240,7 +240,7 @@ iondb,iondb,,X_Single,Y_auto
 iotdb,iotdb,apache-iotdb,Fuzzy,
 irmin,irmin,,X_Single,Y_auto
 jackrabbit,jackrabbit,jackrabbit,Normal,Y_auto
-jaguar,jaguar,,X_Single,Y_auto
+jaguar,jaguar,jaguardb,Fuzzy,
 janusgraph,janusgraph,janusgraph,Normal,Y_auto
 jasdb,jasdb,jasdb,Normal,Y_auto
 jena,jena,apache-jena-tdb,Fuzzy,
@@ -317,7 +317,7 @@ nanolat,nanolat,,X_Single,Y_auto
 ncache,ncache,ncache,Normal,Y_auto
 ndatabase,ndatabase,,X_Single,Y_auto
 ndb-cluster,ndb-cluster,,X_Single,Y_auto
-nebula-graph,nebula-graph,,X_Single,Y_auto
+nebula-graph,nebula-graph,nebulagraph,Fuzzy,
 nedb,nedb,,X_Single,Y_auto
 neo,neo,,X_Single,Y_auto
 neo4j,neo4j,neo4j,Normal,Y_auto
@@ -368,7 +368,7 @@ postgresql,postgresql,postgresql,Normal,Y_auto
 pouchdb,pouchdb,pouchdb,Normal,Y_auto
 pranadb,pranadb,,X_Single,Y_auto
 predator,predator,,X_Single,Y_auto
-prestodb,prestodb,,X_Single,Y_auto
+prestodb,prestodb,presto,Fuzzy,
 profanedb,profanedb,,X_Single,Y_auto
 prometheus,prometheus,prometheus,Normal,Y_auto
 pumpkindb,pumpkindb,,X_Single,Y_auto
@@ -413,7 +413,7 @@ sapphiredb,sapphiredb,,X_Single,Y_auto
 scalaris,scalaris,scalaris,Normal,Y_auto
 scaliendb,scaliendb,,X_Single,Y_auto
 scidb,scidb,scidb,Normal,Y_auto
-scylla,scylla,,X_Single,Y_auto
+scylla,scylla,scylladb,Fuzzy,
 sdb,sdb,,X_Single,Y_auto
 seafowl,seafowl,,X_Single,Y_auto
 sedna,sedna,sedna,Normal,Y_auto
@@ -542,12 +542,10 @@ acebase,,acebase,Y_Single,Y_auto
 adabas,,adabas,Y_Single,Y_auto
 apache-flink,,apache-flink,Y_Single,Y_auto
 atoti,,atoti,Y_Single,Y_auto
-badger,,badger,Y_Single,Y_auto
 cachelotio,,cachelotio,Y_Single,Y_auto
 databricks,,databricks,Y_Single,Y_auto
 dydra,,dydra,Y_Single,Y_auto
 elassandra,,elassandra,Y_Single,Y_auto
-eventstoredb,,eventstoredb,Y_Single,Y_auto
 firebolt,,firebolt,Y_Single,Y_auto
 geomesa,,geomesa,Y_Single,Y_auto
 gigaspaces,,gigaspaces,Y_Single,Y_auto
@@ -561,13 +559,11 @@ hgraphdb,,hgraphdb,Y_Single,Y_auto
 hugegraph,,hugegraph,Y_Single,Y_auto
 hyperleveldb,,hyperleveldb,Y_Single,Y_auto
 iboxdb,,iboxdb,Y_Single,Y_auto
-jaguardb,,jaguardb,Y_Single,Y_auto
 kdb,,kdb,Y_Single,Y_auto
 kyoto-tycoon,,kyoto-tycoon,Y_Single,Y_auto
 leveldb,,leveldb,Y_Single,Y_auto
 marqo,,marqo,Y_Single,Y_auto
 matisse,,matisse,Y_Single,Y_auto
-nebulagraph,,nebulagraph,Y_Single,Y_auto
 neventstore,,neventstore,Y_Single,Y_auto
 newts,,newts,Y_Single,Y_auto
 nsdb,,nsdb,Y_Single,Y_auto
@@ -576,14 +572,12 @@ opensearch,,opensearch,Y_Single,Y_auto
 oracle-coherence,,oracle-coherence,Y_Single,Y_auto
 postgis,,postgis,Y_Single,Y_auto
 postgres-xl,,postgres-xl,Y_Single,Y_auto
-presto,,presto,Y_Single,Y_auto
 qdrant,,qdrant,Y_Single,Y_auto
 rasdaman,,rasdaman,Y_Single,Y_auto
 rdf4j,,rdf4j,Y_Single,Y_auto
 redland,,redland,Y_Single,Y_auto
 resin-cache,,resin-cache,Y_Single,Y_auto
 rrdtool,,rrdtool,Y_Single,Y_auto
-scylladb,,scylladb,Y_Single,Y_auto
 siaqodb,,siaqodb,Y_Single,Y_auto
 sitewhere,,sitewhere,Y_Single,Y_auto
 snowflake,,snowflake,Y_Single,Y_auto
