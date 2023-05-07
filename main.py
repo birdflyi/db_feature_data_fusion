@@ -25,7 +25,6 @@ if pkg_rootdir not in sys.path:  # 解决ipynb引用上层路径中的模块时�
 import pandas as pd
 
 from db_engines_ranking_table_crawling.script.time_format import TimeFormat
-from dbdbio_OSDB_info_crawling.script.db_info_fusion import merge_info_start_checkpoint_last_month_manulabeled
 from script.db_indiv_preprocessing import dbdbio_feat_preprocessing, dbengines_feat_preprocessing
 from script.db_info_fusion import merge_key_dbdbio_dbengines, merge_info_dbdbio_dbengines, unique_name_recalc, \
     compare_df_curr_last_update_with_df_last_manulabeled_values
@@ -95,7 +94,10 @@ if __name__ == '__main__':
     # Setp2.1: set False to init; Step2.2: set True to manulabel.
     DBNAME_MAPPING_CONFLICT_RESOLVED = True
     if not DBNAME_MAPPING_CONFLICT_RESOLVED:
-        FORCE_INIT_DBFEATFUSION_DBNAME_MAPPING_MANULABELED = False
+        FORCE_INIT_DBFEATFUSION_DBNAME_MAPPING_MANULABELED = True
+        # sort dataframes by keys before executing merge_key_dbdbio_dbengines
+        df_dbdbio_info_platform_filtered = df_dbdbio_info_platform_filtered.sort_values(by=key_dbdbio_info, ascending=True)
+        df_dbengines_info_platform_filtered = df_dbengines_info_platform_filtered.sort_values(by=key_dbengines_info, ascending=True)
         merge_key_dbdbio_dbengines(df_dbdbio_info_platform_filtered, df_dbengines_info_platform_filtered,
                                    save_path=tar_dbfeatfusion_dbname_mapping_autogen_path,
                                    on_key_pair=key_db_info_pair, key_avoid_conf_prefixes=key_avoid_conf_prefixes,
