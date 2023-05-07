@@ -55,7 +55,7 @@ blazingsql,blazingsql,,X_Single,Y_auto,BlazingSQL,Relational,C++,SQL,Shared-Noth
 blinkdb,blinkdb,,X_Single,Y_auto,BlinkDB,Relational,,SQL,Shared-Disk,"University of California-Berkeley, Massachusetts Institute of Technology",US,2012,2014,"Academic,Open Source",Apache v2,sameeragarwal/blinkdb,Y,,
 blueflood,blueflood,blueflood,Normal,Y_auto,Blueflood,Time Series,Java,,,Rackspace,US,2013,,Open Source,Apache v2.0,rackerlabs/blueflood,Y,0.29,346
 bojack,bojack,,X_Single,Y_auto,BoJack,Key-value,Crystal,Command-line / Shell,Shared-Everything,Marcelo Boeira,DE,2016,2018,Open Source,MIT,marceloboeira/bojack,Y,,
-boltdb,boltdb,boltdb,Normal,Y_auto,BoltDB,Key-value,Go,Custom API,Embedded,Ben Johnson,US,2013,2017,Open Source,MIT,etcd-io/bbolt,Y,0.99,232
+boltdb,boltdb,boltdb,Normal,Y_auto,BoltDB,Key-value,Go,Custom API,Embedded,Ben Johnson,US,2013,2017,Open Source,MIT,boltdb/bolt,Y,0.99,232
 bonsaidb,bonsaidb,,X_Single,Y_auto,BonsaiDb,Key-value,Rust,,"Shared-Everything,Embedded",Khonsu Labs,US,2021,,Open Source,"Apache v2,MIT",khonsulabs/bonsaidb,Y,,
 brightstardb,brightstardb,brightstardb,Normal,Y_auto,BrightstarDB,RDF,C#,,,,GB,2012,,Open Source,MIT,BrightstarDB/BrightstarDB,Y,0.37,330
 btdb,btdb,,X_Single,Y_auto,BTDB,"Key-value,Object oriented",C#,Custom API,,Boris Letocha,CZ,2010,,Open Source,MIT,Bobris/BTDB,Y,,
