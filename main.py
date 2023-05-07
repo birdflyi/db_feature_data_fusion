@@ -41,7 +41,7 @@ manulabeled_dir = os.path.join(Base_Dir, "data/manulabeled")
 
 
 if __name__ == '__main__':
-    month_yyyyMM = "202304"
+    month_yyyyMM = "202305"
     format_time_in_filename = "%Y%m"
     format_time_in_colname = "%b-%Y"
     curr_month = TimeFormat(month_yyyyMM, format_time_in_filename, format_time_in_filename)
@@ -91,6 +91,8 @@ if __name__ == '__main__':
     conflict_delimiter = "#dbdbio>|<dbengines#"
 
     src_dbfeatfusion_dbname_mapping_manulabeled_path = os.path.join(mapping_table_dir, f"dbfeatfusion_dbname_mapping_{month_yyyyMM}_manulabeled.csv")
+
+    # Setp2.1: set False to init; Step2.2: set True to manulabel.
     DBNAME_MAPPING_CONFLICT_RESOLVED = True
     if not DBNAME_MAPPING_CONFLICT_RESOLVED:
         FORCE_INIT_DBFEATFUSION_DBNAME_MAPPING_MANULABELED = False
@@ -103,8 +105,8 @@ if __name__ == '__main__':
         print(f"{src_dbfeatfusion_dbname_mapping_manulabeled_path} initialized! \n\tPlease run main.py again after labeling it and setting DBNAME_MAPPING_CONFLICT_RESOLVED = True.")
     else:
         # manulabeled dbname_mapping
-        state_error_msg = f"StateError! Please set CONFLICT_RESOLVED = False, then manually label the 'Fuzzy' and 'Multiple' Matched records in file {tar_dbfeatfusion_dbname_mapping_autogen_path}, " \
-                          f"save it to the path: {src_dbfeatfusion_dbname_mapping_manulabeled_path}. Finally, set CONFLICT_RESOLVED = True."
+        state_error_msg = f"StateError! Please set DBNAME_MAPPING_CONFLICT_RESOLVED = False, then manually label the 'Fuzzy' and 'Multiple' Matched records in file {tar_dbfeatfusion_dbname_mapping_autogen_path}, " \
+                          f"save it to the path: {src_dbfeatfusion_dbname_mapping_manulabeled_path}. Finally, set DBNAME_MAPPING_CONFLICT_RESOLVED = True."
         try:
             df_dbfeatfusion_dbname_mapping_manulabeled = pd.read_csv(src_dbfeatfusion_dbname_mapping_manulabeled_path, encoding=encoding, index_col=False, dtype=db_info_fusion_dtype)
             df_dbfeatfusion_dbname_mapping_manulabeled[merged_key_alias] = df_dbfeatfusion_dbname_mapping_manulabeled.apply(
@@ -139,7 +141,11 @@ if __name__ == '__main__':
         dbfeatfusion_records_automerged_path = os.path.join(tar_dbfeatfusion_dir, f"dbfeatfusion_records_{month_yyyyMM}_automerged.csv")
         dbfeatfusion_records_manulabeled_last_month_path = os.path.join(manulabeled_dir, f"dbfeatfusion_records_{last_month_yyyyMM}_automerged_manulabeled.csv")
         tar_dbfeatfusion_records_manulabeled_path = os.path.join(manulabeled_dir, f"dbfeatfusion_records_{month_yyyyMM}_automerged_manulabeled.csv")
+
+        #  Setp4.1: set True to init; Step4.2: set False to manulabel.
         RESET_FINAL_TABLE_TO_INHERIT_MANULABELED = False
+        dbfeatfusion_records_manulabeled_last_month_main_part_path = dbfeatfusion_records_manulabeled_last_month_path.replace(".csv", "_main_part.csv")
+        tar_dbfeatfusion_records_manulabeled_main_part_path = tar_dbfeatfusion_records_manulabeled_path.replace(".csv", "_main_part.csv")
         if RESET_FINAL_TABLE_TO_INHERIT_MANULABELED:
             df_last_automerged = pd.read_csv(dbfeatfusion_records_automerged_last_month_path, encoding=encoding, index_col=False, dtype=db_last_month_info_fusion_dtype)
             df_curr_automerged = pd.read_csv(dbfeatfusion_records_automerged_path, encoding=encoding, index_col=False, dtype=db_info_fusion_dtype)
@@ -152,4 +158,17 @@ if __name__ == '__main__':
                 index_filter_func=lambda x: not valid_contains_conflict_delimiter(x),
                 item_filter_func=valid_contains_conflict_delimiter, encoding=encoding)
             print(f"{curr_manulabeled_autogen_path} initialized!")
+            main_part_columns = df_last_manulabeled.columns[:-2]
+            df_last_manulabeled[main_part_columns].to_csv(dbfeatfusion_records_manulabeled_last_month_main_part_path, encoding=encoding, index=False)
+            print(dbfeatfusion_records_manulabeled_last_month_main_part_path, 'saved!')
+            df_curr_manulabeled = pd.read_csv(tar_dbfeatfusion_records_manulabeled_path, encoding=encoding, index_col=False, dtype=db_info_fusion_dtype)
+            df_curr_manulabeled[main_part_columns].to_csv(tar_dbfeatfusion_records_manulabeled_main_part_path, encoding=encoding, index=False)
+            print(tar_dbfeatfusion_records_manulabeled_main_part_path, 'saved!')
+            print(f"Warning: Please set RESET_FINAL_TABLE_TO_INHERIT_MANULABELED = False and rerun the code after manulabel the main part in {tar_dbfeatfusion_records_manulabeled_main_part_path}!")
+        else:
+            # run after manulabel the main part in tar_dbfeatfusion_records_manulabeled_main_part_path
+            df_curr_manulabeled = pd.read_csv(tar_dbfeatfusion_records_manulabeled_path, encoding=encoding, index_col=False, dtype=db_info_fusion_dtype)
+            df_curr_manulabeled_main_part = pd.read_csv(tar_dbfeatfusion_records_manulabeled_main_part_path, encoding=encoding, index_col=False, dtype=db_info_fusion_dtype)
+            df_curr_manulabeled.update(df_curr_manulabeled_main_part)
+            df_curr_manulabeled.to_csv(tar_dbfeatfusion_records_manulabeled_path, encoding=encoding, index=False)
 
