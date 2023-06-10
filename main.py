@@ -40,7 +40,16 @@ manulabeled_dir = os.path.join(Base_Dir, "data/manulabeled")
 
 
 if __name__ == '__main__':
-    month_yyyyMM = "202305"
+    curr_stage = 2
+    stage__DBNAME_MAPPING__RESET_FINAL_TABLE = {
+        0: [False, True],
+        # Resolve conflict for the dbname_mapping: src_dbfeatfusion_dbname_mapping_manulabeled_path before next step!
+        1: [True, True],
+        # Resolve conflict for the main part of final_table: tar_dbfeatfusion_records_manulabeled_path before next step!
+        2: [True, False]
+    }
+
+    month_yyyyMM = "202306"
     format_time_in_filename = "%Y%m"
     format_time_in_colname = "%b-%Y"
     curr_month = TimeFormat(month_yyyyMM, format_time_in_filename, format_time_in_filename)
@@ -92,7 +101,7 @@ if __name__ == '__main__':
     src_dbfeatfusion_dbname_mapping_manulabeled_path = os.path.join(mapping_table_dir, f"dbfeatfusion_dbname_mapping_{month_yyyyMM}_manulabeled.csv")
 
     # Setp2.1: set False to init; Step2.2: set True to manulabel.
-    DBNAME_MAPPING_CONFLICT_RESOLVED = True
+    DBNAME_MAPPING_CONFLICT_RESOLVED = stage__DBNAME_MAPPING__RESET_FINAL_TABLE[curr_stage][0]
     if not DBNAME_MAPPING_CONFLICT_RESOLVED:
         FORCE_INIT_DBFEATFUSION_DBNAME_MAPPING_MANULABELED = True
         # sort dataframes by keys before executing merge_key_dbdbio_dbengines
@@ -145,7 +154,7 @@ if __name__ == '__main__':
         tar_dbfeatfusion_records_manulabeled_path = os.path.join(manulabeled_dir, f"dbfeatfusion_records_{month_yyyyMM}_automerged_manulabeled.csv")
 
         #  Setp4.1: set True to init; Step4.2: set False to manulabel.
-        RESET_FINAL_TABLE_TO_INHERIT_MANULABELED = False
+        RESET_FINAL_TABLE_TO_INHERIT_MANULABELED = stage__DBNAME_MAPPING__RESET_FINAL_TABLE[curr_stage][1]
         dbfeatfusion_records_manulabeled_last_month_main_part_path = dbfeatfusion_records_manulabeled_last_month_path.replace(".csv", "_main_part.csv")
         tar_dbfeatfusion_records_manulabeled_main_part_path = tar_dbfeatfusion_records_manulabeled_path.replace(".csv", "_main_part.csv")
         if RESET_FINAL_TABLE_TO_INHERIT_MANULABELED:
