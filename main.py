@@ -45,11 +45,11 @@ if __name__ == '__main__':
         0: [False, True],
         # Resolve conflict for the dbname_mapping: src_dbfeatfusion_dbname_mapping_manulabeled_path before next step!
         1: [True, True],
-        # Resolve conflict for the main part of final_table: tar_dbfeatfusion_records_manulabeled_path before next step!
+        # Resolve conflict for the main part of final_table: dbfeatfusion_records_manulabeled_last_month_main_part_path before next step!
         2: [True, False]
     }
 
-    month_yyyyMM = "202306"
+    month_yyyyMM = "202307"
     format_time_in_filename = "%Y%m"
     format_time_in_colname = "%b-%Y"
     curr_month = TimeFormat(month_yyyyMM, format_time_in_filename, format_time_in_filename)

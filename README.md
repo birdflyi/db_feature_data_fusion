@@ -1,6 +1,8 @@
 # db_feature_data_fusion
 Database feature data fusion for repositories [birdflyi/db_engines_ranking_table_crawling](https://github.com/birdflyi/db_engines_ranking_table_crawling) and [birdflyi/dbdbio_OSDB_info_crawling](https://github.com/birdflyi/dbdbio_OSDB_info_crawling).
 
+## 1. Data processing workflow
+
 ### Step1: preprocessing
 Preprocess data from [birdflyi/db_engines_ranking_table_crawling](https://github.com/birdflyi/db_engines_ranking_table_crawling) and [birdflyi/dbdbio_OSDB_info_crawling](https://github.com/birdflyi/dbdbio_OSDB_info_crawling), 
 and save them into directory [db_feature_fusion](./data/db_feature_fusion).
@@ -30,3 +32,15 @@ The default separator setting when values conflicts during fusion: `conflict_del
 ### Step4: Solve conflicts manually
 Conflicts occurs in each item contains conflict_delimiter(default "#dbdbio>|<dbengines#").
 Solve conflicts manually as table "dbfeatfusion_records_{month_yyyyMM}_manulabeled.csv"(e.g. [dbfeatfusion_records_202302_manulabeled.csv](./data/db_feature_fusion/dbfeatfusion_records_202302_manulabeled.csv)).
+
+## 2. How to update data
+
+### Step1: Update git submodules
+Use git command in the root directory of this data fusion project to update each git submodule:
+```git
+git submodule foreach git checkout main
+git submodule foreach git pull
+```
+
+### Step2: Make changes and push
+Follow the instructions in step "1. Data processing workflow" to make changes. Push the commits to origin.
