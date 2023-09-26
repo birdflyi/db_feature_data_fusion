@@ -1,0 +1,49 @@
+category_label,category_name
+Array,Array
+Content,Content
+Document,Document
+Event,Event
+Graph,Graph
+Hierarchical,Hierarchical
+Key-value,Key-value
+Multivalue,Multivalue
+Native XML,Native XML
+Navigational,Navigational
+Network,Network
+Object Oriented,Object Oriented
+Object Oriented,Object oriented
+RDF,RDF
+Relational,Relational
+Search Engine,Search Engine
+Search Engine,Search engine
+Spatial,Spatial
+Spatial,Spatial DBMS
+Time Series,Time Series
+Vector,Vector
+Wide column,Wide column
+Document,Document / XML
+Graph,Entity-Relationship
+Key-value,Key/Value
+Multivalue,Multi-Value
+Object Oriented,Object-Oriented
+RDF,Triplestore (RDF)
+Wide column,Column Family
+Wide column,Column Family / Wide-Column
+"Object Oriented,Relational",Object-Relational
+Array,Array / Matrix
+Content,Content stores
+Document,Document store
+Event,Event Store
+Graph,Graph DBMS
+Key-value,Key-value store
+Multivalue,Multivalue DBMS
+Native XML,Native XML DBMS
+Navigational,Navigational DBMS
+Object Oriented,Object oriented DBMS
+RDF,RDF store
+Relational,Relational DBMS
+Search Engine,Search engine
+Spatial,Spatial DBMS
+Time Series,Time Series DBMS
+Vector,Vector DBMS
+Wide column,Wide column store
