@@ -47,3 +47,4 @@ Spatial,Spatial DBMS
 Time Series,Time Series DBMS
 Vector,Vector DBMS
 Wide column,Wide column store
+RDF,Triplestore / RDF
