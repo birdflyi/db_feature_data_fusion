@@ -76,6 +76,7 @@ caskdb,caskdb,,X_Single,Y_auto
 cassandra,cassandra,cassandra,Normal,Y_auto
 castledb,castledb,,X_Single,Y_auto
 cayley,cayley,,X_Single,Y_auto
+cdb,cdb,,X_Single,Y_auto
 ceresdb,ceresdb,,X_Single,Y_auto
 chaozzdb,chaozzdb,,X_Single,Y_auto
 cheetah,cheetah,,X_Single,Y_auto
@@ -292,6 +293,7 @@ kuzu,kuzu,,X_Single,Y_auto
 kvrocks,kvrocks,,X_Single,Y_auto
 kylin,kylin,apache-kylin,Fuzzy:Normal,Y
 kyoto-cabinet,kyoto-cabinet,,X_Single,Y_auto
+kyoto-tycoon,kyoto-tycoon,kyoto-tycoon,Normal,Y_auto
 lancedb,lancedb,,X_Single,Y_auto
 lazer,lazer,,X_Single,Y_auto
 lealone,lealone,,X_Single,Y_auto
@@ -299,6 +301,7 @@ leap,leap,,X_Single,Y_auto
 ledisdb,ledisdb,ledisdb,Normal,Y_auto
 libmdbx,libmdbx,,X_Single,Y_auto
 libsql,libsql,,X_Single,Y_auto
+lightcloud,lightcloud,,X_Single,Y_auto
 lightdb,lightdb,,X_Single,Y_auto
 lindb,lindb,,X_Single,Y_auto
 lineairdb,lineairdb,,X_Single,Y_auto
@@ -342,6 +345,7 @@ mondrian,mondrian,,X_Single,Y_auto
 monetdb,monetdb,monetdb,Normal,Y_auto
 mongodb,mongodb,mongodb,Multiple:Normal,Y_ConflictResolved
 mulgara,mulgara,mulgara,Normal,Y_auto
+mutable,mutable,,X_Single,Y_auto
 mysql,mysql,mysql,Multiple:Normal,Y_ConflictResolved
 nanolat,nanolat,,X_Single,Y_auto
 ncache,ncache,ncache,Normal,Y_auto
@@ -349,7 +353,7 @@ ndatabase,ndatabase,,X_Single,Y_auto
 ndb-cluster,ndb-cluster,,X_Single,Y_auto
 nebula-graph,nebula-graph,nebulagraph,Fuzzy:Normal,Y
 nedb,nedb,,X_Single,Y_auto
-neo,neo,,X_Single,Y_auto
+neo,neo,,Fuzzy:X_Single,Y_ConflictResolved
 neo4j,neo4j,neo4j,Normal,Y_auto
 neodatis-odb,neodatis-odb,,X_Single,Y_auto
 neon,neon,,X_Single,Y_auto
@@ -437,6 +441,7 @@ refinedb,refinedb,,X_Single,Y_auto
 rel,rel,,X_Single,Y_auto
 relaxo,relaxo,,X_Single,Y_auto
 resilientdb,resilientdb,,X_Single,Y_auto
+resin-cache,resin-cache,resin-cache,Normal,Y_auto
 rethinkdb,rethinkdb,rethinkdb,Normal,Y_auto
 rexdb,rexdb,,X_Single,Y_auto
 riak,riak,,Multiple:X_Single,Y_ConflictResolved
@@ -482,6 +487,7 @@ solr,solr,solr,Normal,Y_auto
 sones-graphdb,sones-graphdb,,X_Single,Y_auto
 sonnerie,sonnerie,,X_Single,Y_auto
 spark-sql,spark-sql,spark-sql,Normal,Y_auto
+sparksee,sparksee,,X_Single,Y_auto
 sparrowdb,sparrowdb,,X_Single,Y_auto
 speedy,speedy,,X_Single,Y_auto
 sphinx,sphinx,sphinx,Normal,Y_auto
@@ -538,6 +544,7 @@ titan-nosql,titan-nosql,,X_Single,Y_auto
 tokudb,tokudb,,X_Single,Y_auto
 tokumx,tokumx,,X_Single,Y_auto
 tokyo-cabinet,tokyo-cabinet,,X_Single,Y_auto
+tokyo-tyrant,tokyo-tyrant,tokyo-tyrant,Normal,Y_auto
 tomp2p,tomp2p,tomp2p,Normal,Y_auto
 torodb,torodb,,X_Single,Y_auto
 toydb,toydb,,X_Single,Y_auto
@@ -608,7 +615,6 @@ hgraphdb,,hgraphdb,Y_Single,Y_auto
 hyperleveldb,,hyperleveldb,Y_Single,Y_auto
 iboxdb,,iboxdb,Y_Single,Y_auto
 kdb,,kdb,Y_Single,Y_auto
-kyoto-tycoon,,kyoto-tycoon,Y_Single,Y_auto
 leveldb,,leveldb,Y_Single,Y_auto
 neventstore,,neventstore,Y_Single,Y_auto
 newts,,newts,Y_Single,Y_auto
@@ -621,7 +627,6 @@ postgres-xl,,postgres-xl,Y_Single,Y_auto
 qdrant,,qdrant,Y_Single,Y_auto
 rdf4j,,rdf4j,Y_Single,Y_auto
 redland,,redland,Y_Single,Y_auto
-resin-cache,,resin-cache,Y_Single,Y_auto
 rrdtool,,rrdtool,Y_Single,Y_auto
 siaqodb,,siaqodb,Y_Single,Y_auto
 sitewhere,,sitewhere,Y_Single,Y_auto
@@ -633,13 +638,13 @@ tigris,,tigris,Y_Single,Y_auto
 timescaledb,,timescaledb,Y_Single,Y_auto
 tinkergraph,,tinkergraph,Y_Single,Y_auto
 tkrzw,,tkrzw,Y_Single,Y_auto
-tokyo-tyrant,,tokyo-tyrant,Y_Single,Y_auto
 transwarp-stellardb,,transwarp-stellardb,Y_Single,Y_auto
 typesense,,typesense,Y_Single,Y_auto
 vald,,vald,Y_Single,Y_auto
 virtuoso,,virtuoso,Y_Single,Y_auto
 wakandadb,,wakandadb,Y_Single,Y_auto
 ytsaurus,,ytsaurus,Y_Single,Y_auto
+machbase-neo,,machbase-neo,:Y_Single,Y_ConflictResolved
 percona-server-for-mongodb,,percona-server-for-mongodb,:Y_Single,Y_ConflictResolved
 riak-kv,,riak-kv,:Y_Single,Y_ConflictResolved
 riak-ts,,riak-ts,:Y_Single,Y_ConflictResolved
