@@ -120,6 +120,7 @@ if __name__ == '__main__':
                           f"save it to the path: {src_dbfeatfusion_dbname_mapping_manulabeled_path}. Finally, set DBNAME_MAPPING_CONFLICT_RESOLVED = True."
         try:
             df_dbfeatfusion_dbname_mapping_manulabeled = pd.read_csv(src_dbfeatfusion_dbname_mapping_manulabeled_path, encoding=encoding, index_col=False, dtype=db_info_fusion_dtype)
+            df_dbfeatfusion_dbname_mapping_manulabeled.drop(df_dbfeatfusion_dbname_mapping_manulabeled[df_dbfeatfusion_dbname_mapping_manulabeled['manu_labeled_flag'] == '--'].index, inplace=True)  # drop the merged redundant row marked the column 'manu_labeled_flag' as "--".
             df_dbfeatfusion_dbname_mapping_manulabeled[merged_key_alias] = df_dbfeatfusion_dbname_mapping_manulabeled.apply(
                 lambda df: unique_name_recalc(df[key_dbdbio_prefixed], df[key_dbengines_prefixed]), axis=1)
             df_dbfeatfusion_dbname_mapping_manulabeled.to_csv(src_dbfeatfusion_dbname_mapping_manulabeled_path, encoding=encoding, index=False)

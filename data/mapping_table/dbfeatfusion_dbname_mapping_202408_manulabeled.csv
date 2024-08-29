@@ -243,7 +243,7 @@ hawq,hawq,apache-hawq,Fuzzy:Normal,Y
 haystackdb,haystackdb,,X_Single,Y_auto
 hazelcast,hazelcast,hazelcast,Normal,Y_auto
 hbase,hbase,apache-hbase,Fuzzy:Normal,Y
-heavydb,heavydb,,X_Single,Y_auto
+heavydb,heavydb,heavyai,X_Single:Normal,Y_Merged
 herddb,herddb,,X_Single,Y_auto
 heroic,heroic,heroic,Normal,Y_auto
 hibari,hibari,hibari,Normal,Y_auto
@@ -647,7 +647,6 @@ graphite,,graphite,Y_Single,Y_auto
 gstore,,gstore,Y_Single,Y_auto
 h2gis,,h2gis,Y_Single,Y_auto
 hawkular-metrics,,hawkular-metrics,Y_Single,Y_auto
-heavyai,,heavyai,Y_Single,Y_auto
 hgraphdb,,hgraphdb,Y_Single,Y_auto
 hyperleveldb,,hyperleveldb,Y_Single,Y_auto
 iboxdb,,iboxdb,Y_Single,Y_auto

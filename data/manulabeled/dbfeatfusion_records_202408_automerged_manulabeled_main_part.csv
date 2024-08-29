@@ -243,7 +243,7 @@ hawq,hawq,apache-hawq,Fuzzy:Normal,Y,Apache HAWQ,Relational,Java,SQL,Shared-Disk
 haystackdb,haystackdb,,X_Single,Y_auto,HaystackDB,Vector,Rust,Custom API,Shared-Everything,Carson Poole,US,2024,,"Hobby,Open Source",Apache v2,carsonpo/haystackdb,Y
 hazelcast,hazelcast,hazelcast,Normal,Y_auto,Hazelcast,Key-value,Java,Custom API,Shared-Nothing,Hazelcast,US,2008,2023,"Commercial,Open Source",Apache v2; commercial licenses available,hazelcast/hazelcast,Y
 hbase,hbase,apache-hbase,Fuzzy:Normal,Y,Apache HBase,Wide column,Java,Custom API,Shared-Disk,Powerset#dbdbio>|<dbengines#Apache Software Foundation,US,2007#dbdbio>|<dbengines#2008,2021,Open Source,Apache v2,apache/hbase,Y
-heavydb,heavydb,,X_Single,Y_auto,HeavyDB,Relational,C++,SQL,Shared-Everything,HEAVY.AI,US,2013,,"Commercial,Open Source",Apache v2,heavyai/heavydb,Y
+heavydb,heavydb,heavyai,X_Single:Normal,Y_Merged,HeavyDB,Relational,C++,SQL,Shared-Everything,"HEAVY.AI, Inc.",US,2013#dbdbio>|<dbengines#2016,2022,"Commercial,Open Source",Apache v2,heavyai/heavydb,Y
 herddb,herddb,,X_Single,Y_auto,HerdDB,Relational,Java,"Custom API,SQL,Command-line / Shell",Shared-Nothing,Diennea S.r.l.,IT,2016,,Open Source,Apache v2,diennea/herddb,Y
 heroic,heroic,heroic,Normal,Y_auto,Heroic,Key-value#dbdbio>|<dbengines#Time Series,Java,Custom API,Shared-Nothing,Spotify,SE,2015#dbdbio>|<dbengines#2014,2019,Open Source,Apache v2.0,spotify/heroic,Y
 hibari,hibari,hibari,Normal,Y_auto,Hibari,Key-value,Erlang,,,Gemini Mobile Technologies,"JP,US",2005,,Open Source,Apache v2,hibari/hibari,Y
@@ -647,7 +647,6 @@ graphite,,graphite,Y_Single,Y_auto,Graphite,Time Series,,,,Chris Davis,,2006,,,A
 gstore,,gstore,Y_Single,Y_auto,gStore,Graph,,,,,,2016,2023,,BSD,pkumod/gStore,Y
 h2gis,,h2gis,Y_Single,Y_auto,H2GIS,Spatial,,,,CNRS,,2013,,,LGPL 3.0,orbisgis/h2gis,Y
 hawkular-metrics,,hawkular-metrics,Y_Single,Y_auto,Hawkular Metrics,Time Series,,,,Community supported by Red Hat,,2014,,,Apache 2.0,hawkular/hawkular-metrics,Y
-heavyai,,heavyai,Y_Single,Y_auto,HEAVY.AI,Relational,,,,"HEAVY.AI, Inc.",,2016,2022,,Apache Version 2; enterprise edition available,heavyai/heavydb,Y
 hgraphdb,,hgraphdb,Y_Single,Y_auto,HGraphDB,Graph,,,,,,2016,,,Apache 2.0,rayokota/hgraphdb,Y
 hyperleveldb,,hyperleveldb,Y_Single,Y_auto,HyperLevelDB,Key-value,,,,,,2010,,,,rescrv/HyperLevelDB,Y
 iboxdb,,iboxdb,Y_Single,Y_auto,iBoxDB,Document,,,,,,2013,,,,iboxdb/ftserver,Y
