@@ -49,19 +49,20 @@ if __name__ == '__main__':
         2: [True, False]
     }
 
-    month_yyyyMM = "202505"
+    month_YYYYmm = "202507"
+    n_interval = 2
     format_time_in_filename = "%Y%m"
     format_time_in_colname = "%b-%Y"
-    curr_month = TimeFormat(month_yyyyMM, format_time_in_filename, format_time_in_filename)
-    last_month_yyyyMM = curr_month.get_last_month(format_time_in_filename)
-    colname_last_month = curr_month.get_last_month(format_time_in_colname)
+    curr_month = TimeFormat(month_YYYYmm, format_time_in_filename, format_time_in_filename)
+    last_month_yyyyMM = curr_month.get_last_month(format_time_in_filename, n=n_interval)
+    colname_last_month = curr_month.get_last_month(format_time_in_colname, n=n_interval)
     colname_curr_month = curr_month.get_curr_month(format_time_in_colname)
 
     # Step1: preprocessing
-    src_dbdbio_info_raw_path = os.path.join(src_dbdbio_dir, f"OSDB_info_{month_yyyyMM}_joined_manulabeled.csv")
-    src_dbengines_info_raw_path = os.path.join(src_dbengines_dir, f"ranking_crawling_{month_yyyyMM}_automerged_manulabeled.csv")
-    src_dbdbio_info_path = os.path.join(src_indiv_preprocessing_dir, f"OSDB_info_{month_yyyyMM}_joined_preprocessed.csv")
-    src_dbengines_info_path = os.path.join(src_indiv_preprocessing_dir, f"ranking_crawling_{month_yyyyMM}_automerged_preprocessed.csv")
+    src_dbdbio_info_raw_path = os.path.join(src_dbdbio_dir, f"OSDB_info_{month_YYYYmm}_joined_manulabeled.csv")
+    src_dbengines_info_raw_path = os.path.join(src_dbengines_dir, f"ranking_crawling_{month_YYYYmm}_automerged_manulabeled.csv")
+    src_dbdbio_info_path = os.path.join(src_indiv_preprocessing_dir, f"OSDB_info_{month_YYYYmm}_joined_preprocessed.csv")
+    src_dbengines_info_path = os.path.join(src_indiv_preprocessing_dir, f"ranking_crawling_{month_YYYYmm}_automerged_preprocessed.csv")
 
     dbdbio_info_dtype = {'Start Year': str, 'End Year': str}
     dbengines_info_dtype = {'initial_release_recalc': str, 'current_release_recalc': str, f'Rank_{colname_curr_month}': str}
@@ -72,7 +73,7 @@ if __name__ == '__main__':
     dbengines_feat_preprocessing(src_dbengines_info_raw_path, src_dbengines_info_path, dtype=dbengines_info_dtype)
 
     # Step2: name alignment
-    tar_dbfeatfusion_dbname_mapping_autogen_path = os.path.join(tar_dbfeatfusion_dir, f"dbfeatfusion_dbname_mapping_{month_yyyyMM}_autogen.csv")
+    tar_dbfeatfusion_dbname_mapping_autogen_path = os.path.join(tar_dbfeatfusion_dir, f"dbfeatfusion_dbname_mapping_{month_YYYYmm}_autogen.csv")
 
     df_dbdbio_info = pd.read_csv(src_dbdbio_info_path, encoding=encoding, index_col=False, dtype=dbdbio_info_dtype)
     df_dbengines_info = pd.read_csv(src_dbengines_info_path, encoding=encoding, index_col=False, dtype=dbengines_info_dtype)
@@ -98,7 +99,7 @@ if __name__ == '__main__':
     label_colname = "manu_labeled_flag"
     conflict_delimiter = "#dbdbio>|<dbengines#"
 
-    src_dbfeatfusion_dbname_mapping_manulabeled_path = os.path.join(mapping_table_dir, f"dbfeatfusion_dbname_mapping_{month_yyyyMM}_manulabeled.csv")
+    src_dbfeatfusion_dbname_mapping_manulabeled_path = os.path.join(mapping_table_dir, f"dbfeatfusion_dbname_mapping_{month_YYYYmm}_manulabeled.csv")
 
     # Setp2.1: set False to init; Step2.2: set True to manulabel.
     DBNAME_MAPPING_CONFLICT_RESOLVED = stage__DBNAME_MAPPING__RESET_FINAL_TABLE[curr_stage][0]
@@ -135,7 +136,7 @@ if __name__ == '__main__':
         df_settings_colnames_mapping = pd.read_csv(settings_colnames_mapping_path, encoding=encoding, index_col="tables")
         df_settings_colnames_mapping = df_settings_colnames_mapping.apply(lambda x: x.str.replace("COLNAME_CURR_MONTH", colname_curr_month))
 
-        tar_dbfeatfusion_path = os.path.join(tar_dbfeatfusion_dir, f"dbfeatfusion_records_{month_yyyyMM}_automerged.csv")
+        tar_dbfeatfusion_path = os.path.join(tar_dbfeatfusion_dir, f"dbfeatfusion_records_{month_YYYYmm}_automerged.csv")
 
         df_dbfeatfusion_dbname_mapping_manulabeled = pd.read_csv(src_dbfeatfusion_dbname_mapping_manulabeled_path, encoding=encoding, index_col=False)
         dbdbio_manulabed_flag_series = df_dbdbio_info_platform_filtered[key_dbdbio_info].apply(lambda x: x in df_dbfeatfusion_dbname_mapping_manulabeled[key_dbdbio_prefixed].values)
@@ -150,9 +151,9 @@ if __name__ == '__main__':
 
         # Step4: Solve conflicts in the tar_dbfeatfusion_path manually.
         dbfeatfusion_records_automerged_last_month_path = os.path.join(tar_dbfeatfusion_dir, f"dbfeatfusion_records_{last_month_yyyyMM}_automerged.csv")
-        dbfeatfusion_records_automerged_path = os.path.join(tar_dbfeatfusion_dir, f"dbfeatfusion_records_{month_yyyyMM}_automerged.csv")
+        dbfeatfusion_records_automerged_path = os.path.join(tar_dbfeatfusion_dir, f"dbfeatfusion_records_{month_YYYYmm}_automerged.csv")
         dbfeatfusion_records_manulabeled_last_month_path = os.path.join(manulabeled_dir, f"dbfeatfusion_records_{last_month_yyyyMM}_automerged_manulabeled.csv")
-        tar_dbfeatfusion_records_manulabeled_path = os.path.join(manulabeled_dir, f"dbfeatfusion_records_{month_yyyyMM}_automerged_manulabeled.csv")
+        tar_dbfeatfusion_records_manulabeled_path = os.path.join(manulabeled_dir, f"dbfeatfusion_records_{month_YYYYmm}_automerged_manulabeled.csv")
 
         #  Setp4.1: set True to init; Step4.2: set False to manulabel.
         RESET_FINAL_TABLE_TO_INHERIT_MANULABELED = stage__DBNAME_MAPPING__RESET_FINAL_TABLE[curr_stage][1]
