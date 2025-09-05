@@ -49,8 +49,8 @@ if __name__ == '__main__':
         2: [True, False]
     }
 
-    month_YYYYmm = "202507"
-    n_interval = 2
+    month_YYYYmm = "202508"
+    n_interval = 1
     format_time_in_filename = "%Y%m"
     format_time_in_colname = "%b-%Y"
     curr_month = TimeFormat(month_YYYYmm, format_time_in_filename, format_time_in_filename)
