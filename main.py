@@ -49,7 +49,7 @@ if __name__ == '__main__':
         2: [True, False]
     }
 
-    month_YYYYmm = "202508"
+    month_YYYYmm = "202509"
     n_interval = 1
     format_time_in_filename = "%Y%m"
     format_time_in_colname = "%b-%Y"
