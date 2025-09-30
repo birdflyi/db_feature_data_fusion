@@ -673,40 +673,39 @@ greenplum,greenplum,greenplum,Y_Single,Y_auto,Greenplum,Relational,C,"SQL,PL/SQL
 gstore,,gstore,Y_Single,Y_auto,gStore,Graph,,,,,,2016,2023,,BSD,pkumod/gStore,Y,0.01,374
 h2gis,,h2gis,Y_Single,Y_auto,H2GIS,Spatial,,,,CNRS,,2013,,,LGPL 3.0,orbisgis/h2gis,Y,0.0,381
 hawkular-metrics,,hawkular-metrics,Y_Single,Y_auto,Hawkular Metrics,Time Series,,,,Community supported by Red Hat,,2014,,,Apache 2.0,hawkular/hawkular-metrics,Y,0.02,364
-hgraphdb,,hgraphdb,Y_Single,Y_auto,HGraphDB,Graph,,,,"HEAVY.AI, Inc.",,2016,2022,,Apache 2.0,rayokota/hgraphdb,Y,1.15,172
-hyperleveldb,,hyperleveldb,Y_Single,Y_auto,HyperLevelDB,Key-value,,,,,,2010,,,Apache 2.0,rescrv/HyperLevelDB,Y,0.0,381
+hgraphdb,,hgraphdb,Y_Single,Y_auto,HGraphDB,Graph,,,,,,2016,,,Apache 2.0,rayokota/hgraphdb,Y,0.0,381
+hyperleveldb,,hyperleveldb,Y_Single,Y_auto,HyperLevelDB,Key-value,,,,,,2010,,,,rescrv/HyperLevelDB,Y,0.0,381
 iboxdb,,iboxdb,Y_Single,Y_auto,iBoxDB,Document,,,,,,2013,,,,iboxdb/ftserver,Y,0.0,381
-kdb,,kdb,Y_Single,Y_auto,Kdb,Time Series,,,,"Kx Systems, a division of First Derivatives plc",,2000,2018,,free 32-bit version,KxSystems/kdb,N,0.0,381
-leveldb,,leveldb,Y_Single,Y_auto,LevelDB,Key-value,,,,Google,,2011,2021,,BSD,google/leveldb,Y,6.98,48
-neventstore,,neventstore,Y_Single,Y_auto,NEventStore,Event,,,,Google,,2011,2021,,MIT-License,NEventStore/NEventStore,Y,1.92,121
-newts,,newts,Y_Single,Y_auto,Newts,Time Series,,,,OpenNMS Group,,2014,,,Apache 2.0,OpenNMS/newts,Y,0.15,326
-nsdb,,nsdb,Y_Single,Y_auto,NSDb,Time Series,,,,OpenNMS Group,,2017,,,Apache Version 2.0,radicalbit/NSDb,Y,0.0,381
-opengauss,,opengauss,Y_Single,Y_auto,openGauss,Relational,,,,Huawei and openGauss community,,2019,2022,,Apache Version 2.0,opengauss-mirror/openGauss-server,Y,0.0,381
-opensearch,,opensearch,Y_Single,Y_auto,OpenSearch,Search Engine,,,,The OpenSearch Software Foundation,,2021,2025,,Apache Version 2.0,opensearch-project/OpenSearch,Y,1.13,178
-opentenbase,,opentenbase,Y_Single,Y_auto,OpenTenBase,Relational,,,,"OpenAtom Foundation, previously Tencent",,2021,2024,,BSD-3,OpenTenBase/OpenTenBase,Y,18.48,32
-oracle-coherence,,oracle-coherence,Y_Single,Y_auto,Oracle Coherence,Key-value,,,,Oracle,,2007,2023,,BSD-3,oracle/coherence,N,0.0,381
-postgis,,postgis,Y_Single,Y_auto,PostGIS,Spatial,,,,Oracle,,2005,2024,,GPL v2.0,postgis/postgis,Y,1.67,133
-postgres-xl,,postgres-xl,Y_Single,Y_auto,Postgres-XL,Relational,,,,,,2014,2018,,Mozilla public license,Postgres-XL/Postgres-XL,Y,19.58,30
-qdrant,,qdrant,Y_Single,Y_auto,Qdrant,Vector,,,,Qdrant,,2021,2018,,Apache Version 2.0,qdrant/qdrant,Y,0.3,280
-rdf4j,,rdf4j,Y_Single,Y_auto,RDF4J,RDF,,,,"Since 2016 officially forked into an Eclipse project, former developer was Aduna Software.",,2004,,,"Eclipse Distribution License (EDL), v1.0.",eclipse/rdf4j,Y,2.92,87
-redland,,redland,Y_Single,Y_auto,Redland,RDF,,,,"Since 2016 officially forked into an Eclipse project, former developer was Aduna Software.",,2000,,,"Multi License (LGPL, GPLv2, Apache V2)",dajobe/librdf,Y,0.61,230
-rrdtool,,rrdtool,Y_Single,Y_auto,RRDtool,Time Series,,,,Tobias Oetiker,,1999,2022,,GPL V2 and FLOSS,oetiker/rrdtool-1.x,Y,0.2,305
-siaqodb,,siaqodb,Y_Single,Y_auto,Siaqodb,Object Oriented,,,,Tobias Oetiker,,1999,2022,,GPL V2 and FLOSS,morecraf/Siaqodb,N,1.54,140
-sitewhere,,sitewhere,Y_Single,Y_auto,SiteWhere,Time Series,,,,SiteWhere,,2010,,,Common Public Attribution License Version 1.0,sitewhere/sitewhere,Y,0.0,378
-snowflake,,snowflake,Y_Single,Y_auto,Snowflake,Relational,,,,Snowflake Computing Inc.,,2014,,,Common Public Attribution License Version 1.0,twitter-archive/snowflake,N,0.07,346
-spatialite,,spatialite,Y_Single,Y_auto,SpatiaLite,Spatial,,,,Alessandro Furieri,,2008,2020,,"MPL 1.1, GPL v2.0 or LGPL v2.1",illarionov/SpatiaLite,Y,178.9,6
-speedb,,speedb,Y_Single,Y_auto,Speedb,Key-value,,,,Speedb,,2020,2020,,Apache Version 2.0; commercial license available,speedb-io/speedb,Y,1.54,139
-sqljs,,sqljs,Y_Single,Y_auto,SQL.JS,Relational,,,,Alon Zakai,,2012,,,Apache Version 2.0; commercial license available,sql-js/sql.js,Y,0.12,336
-tigris,,tigris,Y_Single,Y_auto,Tigris,Document,,,,"Tigris Data, Inc.",,2022,,,Apache Version 2.0,tigrisdata/tigris,Y,0.42,261
-timescaledb,,timescaledb,Y_Single,Y_auto,TimescaleDB,Time Series,,,,Timescale,,2017,2024,,Apache 2.0,timescale/timescaledb,Y,0.06,351
-tinkergraph,,tinkergraph,Y_Single,Y_auto,TinkerGraph,Graph,,,,Timescale,,2009,2024,,Apache 2.0,apache/tinkerpop,Y,3.91,67
-transwarp-stellardb,,transwarp-stellardb,Y_Single,Y_auto,Transwarp StellarDB,Graph,,,,Transwarp,,2009,,,Apache 2.0,stellardb/StellarDB,N,0.02,365
-typesense,,typesense,Y_Single,Y_auto,Typesense,Search Engine,,,,Transwarp,,2015,,,GPL V3,typesense/typesense,Y,0.0,381
-virtuoso,,virtuoso,Y_Single,Y_auto,Virtuoso,Document,,,,OpenLink Software,,1998,2023,,"GPLv2, extended commercial license available",openlink/virtuoso-opensource,Y,0.96,191
-wakandadb,,wakandadb,Y_Single,Y_auto,WakandaDB,Object Oriented,,,,Wakanda SAS,,2012,2019,,"AGPLv3, extended commercial license available",-,Y,2.57,99
-ytsaurus,,ytsaurus,Y_Single,Y_auto,YTsaurus,Document,,,,Yandex,,2023,2019,,"Apache License, Version 2.0",ytsaurus/ytsaurus,Y,0.03,359
-machbase-neo,,machbase-neo,:Y_Single,Y_ConflictResolved,Machbase Neo,Time Series,,,,Machbase,,2013,2023,,free test version available,machbase/neo-server,N,0.23,299
-percona-server-for-mongodb,,percona-server-for-mongodb,:Y_Single,Y_ConflictResolved,Percona Server for MongoDB,Document,,,,Percona,,2015,2017,,GPL Version 2,percona/percona-server-mongodb,Y,0.04,356
-riak-kv,,riak-kv,:Y_Single,Y_ConflictResolved,Riak KV,Key-value,,,,"OpenSource, formerly Basho Technologies",,2009,2022,,"Apache version 2, commercial enterprise edition",basho/riak_kv,Y,0.49,250
-riak-ts,,riak-ts,:Y_Single,Y_ConflictResolved,Riak TS,Time Series,,,,"Open Source, formerly Basho Technologies",,2015,2022,,"Apache version 2, commercial enterprise edition",-,Y,3.35,78
+kdb,,kdb,Y_Single,Y_auto,Kdb,Time Series,,,,"Kx Systems, a division of First Derivatives plc",,2000,2018,,free 32-bit version,KxSystems/kdb,N,6.98,48
+leveldb,,leveldb,Y_Single,Y_auto,LevelDB,Key-value,,,,Google,,2011,2021,,BSD,google/leveldb,Y,1.92,121
+neventstore,,neventstore,Y_Single,Y_auto,NEventStore,Event,,,,,,2011,,,MIT-License,NEventStore/NEventStore,Y,0.15,326
+newts,,newts,Y_Single,Y_auto,Newts,Time Series,,,,OpenNMS Group,,2014,,,Apache 2.0,OpenNMS/newts,Y,0.0,381
+nsdb,,nsdb,Y_Single,Y_auto,NSDb,Time Series,,,,,,2017,,,Apache Version 2.0,radicalbit/NSDb,Y,0.0,381
+opengauss,,opengauss,Y_Single,Y_auto,openGauss,Relational,,,,Huawei and openGauss community,,2019,2022,,,opengauss-mirror/openGauss-server,Y,1.13,178
+opensearch,,opensearch,Y_Single,Y_auto,OpenSearch,Search Engine,,,,The OpenSearch Software Foundation,,2021,2025,,Apache Version 2.0,opensearch-project/OpenSearch,Y,18.48,32
+opentenbase,,opentenbase,Y_Single,Y_auto,OpenTenBase,Relational,,,,"OpenAtom Foundation, previously Tencent",,,2024,,BSD-3,OpenTenBase/OpenTenBase,Y,0.0,381
+oracle-coherence,,oracle-coherence,Y_Single,Y_auto,Oracle Coherence,Key-value,,,,Oracle,,2007,2023,,,oracle/coherence,N,1.67,133
+postgis,,postgis,Y_Single,Y_auto,PostGIS,Spatial,,,,,,2005,2024,,GPL v2.0,postgis/postgis,Y,19.58,30
+postgres-xl,,postgres-xl,Y_Single,Y_auto,Postgres-XL,Relational,,,,,,2014,2018,,Mozilla public license,Postgres-XL/Postgres-XL,Y,0.3,280
+qdrant,,qdrant,Y_Single,Y_auto,Qdrant,Vector,,,,Qdrant,,2021,,,Apache Version 2.0,qdrant/qdrant,Y,2.92,87
+rdf4j,,rdf4j,Y_Single,Y_auto,RDF4J,RDF,,,,"Since 2016 officially forked into an Eclipse project, former developer was Aduna Software.",,2004,,,"Eclipse Distribution License (EDL), v1.0.",eclipse/rdf4j,Y,0.61,230
+redland,,redland,Y_Single,Y_auto,Redland,RDF,,,,,,2000,,,"Multi License (LGPL, GPLv2, Apache V2)",dajobe/librdf,Y,0.2,305
+rrdtool,,rrdtool,Y_Single,Y_auto,RRDtool,Time Series,,,,Tobias Oetiker,,1999,2022,,GPL V2 and FLOSS,oetiker/rrdtool-1.x,Y,1.54,140
+siaqodb,,siaqodb,Y_Single,Y_auto,Siaqodb,Object Oriented,,,,,,,,,,morecraf/Siaqodb,N,0.0,378
+sitewhere,,sitewhere,Y_Single,Y_auto,SiteWhere,Time Series,,,,SiteWhere,,2010,,,Common Public Attribution License Version 1.0,sitewhere/sitewhere,Y,0.07,346
+snowflake,,snowflake,Y_Single,Y_auto,Snowflake,Relational,,,,Snowflake Computing Inc.,,2014,,,,twitter-archive/snowflake,N,178.9,6
+spatialite,,spatialite,Y_Single,Y_auto,SpatiaLite,Spatial,,,,Alessandro Furieri,,2008,2020,,"MPL 1.1, GPL v2.0 or LGPL v2.1",illarionov/SpatiaLite,Y,1.54,139
+speedb,,speedb,Y_Single,Y_auto,Speedb,Key-value,,,,Speedb,,2020,,,Apache Version 2.0; commercial license available,speedb-io/speedb,Y,0.12,336
+sqljs,,sqljs,Y_Single,Y_auto,SQL.JS,Relational,,,,Alon Zakai,,2012,,,,sql-js/sql.js,Y,0.42,261
+tigris,,tigris,Y_Single,Y_auto,Tigris,Document,,,,"Tigris Data, Inc.",,2022,,,Apache Version 2.0,tigrisdata/tigris,Y,0.06,351
+timescaledb,,timescaledb,Y_Single,Y_auto,TimescaleDB,Time Series,,,,Timescale,,2017,2024,,Apache 2.0,timescale/timescaledb,Y,3.91,67
+tinkergraph,,tinkergraph,Y_Single,Y_auto,TinkerGraph,Graph,,,,,,2009,,,Apache 2.0,apache/tinkerpop,Y,0.02,365
+transwarp-stellardb,,transwarp-stellardb,Y_Single,Y_auto,Transwarp StellarDB,Graph,,,,Transwarp,,,,,,stellardb/StellarDB,N,0.0,381
+typesense,,typesense,Y_Single,Y_auto,Typesense,Search Engine,,,,,,2015,,,GPL V3,typesense/typesense,Y,0.96,191
+virtuoso,,virtuoso,Y_Single,Y_auto,Virtuoso,Document,,,,OpenLink Software,,1998,2023,,"GPLv2, extended commercial license available",openlink/virtuoso-opensource,Y,2.57,99
+wakandadb,,wakandadb,Y_Single,Y_auto,WakandaDB,Object Oriented,,,,Wakanda SAS,,2012,2019,,"AGPLv3, extended commercial license available",-,Y,0.03,359
+ytsaurus,,ytsaurus,Y_Single,Y_auto,YTsaurus,Document,,,,Yandex,,2023,,,"Apache License, Version 2.0",ytsaurus/ytsaurus,Y,0.23,299
+machbase-neo,,machbase-neo,:Y_Single,Y_ConflictResolved,Machbase Neo,Time Series,,,,Machbase,,2013,2023,,free test version available,machbase/neo-server,N,0.04,356
+percona-server-for-mongodb,,percona-server-for-mongodb,:Y_Single,Y_ConflictResolved,Percona Server for MongoDB,Document,,,,Percona,,2015,2017,,GPL Version 2,percona/percona-server-mongodb,Y,0.49,250
+riak-kv,,riak-kv,:Y_Single,Y_ConflictResolved,Riak KV,Key-value,,,,"OpenSource, formerly Basho Technologies",,2009,2022,,"Apache version 2, commercial enterprise edition",basho/riak_kv,Y,3.35,78
 riak-ts,,riak-ts,:Y_Single,Y_ConflictResolved,Riak TS,Time Series,,,,"Open Source, formerly Basho Technologies",,2015,2022,,,-,Y,0.15,321
