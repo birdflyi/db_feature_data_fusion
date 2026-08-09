@@ -22,6 +22,10 @@ The important columns in this step are: 'match_state_field' and 'manu_labeled_fl
 
 Fuzzy Match means all words in dbdbio key contained by dbengines key.
 Multiple Match means a dbdbio key can Fuzzy Match multiple dbengines keys.
+RepoExactWeb:Normal means dbdbio and dbengines have the same one-to-one normalized GitHub repository link, and the dbengines raw website field directly contains that GitHub repository link.
+RepoExactManual:Normal means dbdbio and dbengines have the same one-to-one normalized GitHub repository link through the manulabeled dbengines github_repo_link field.
+WebsiteExact:Normal means a name-matched candidate is auto-confirmed by the same normalized project website host and a safe path/key containment relation.
+RepoAlias[canonical_key]:X_Single means a dbdbio row shares a GitHub repository with a newer/canonical dbdbio row and is kept as a separate alias row; missing values are synced from the canonical row during feature fusion.
 Use the separator ":" to separate the auto match state and manu labeled match state.
 
 'manu_labeled_flag' has default value empty string "" and 3 other values:

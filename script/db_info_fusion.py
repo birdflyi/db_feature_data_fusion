@@ -22,6 +22,7 @@ if pkg_rootdir not in sys.path:  # 解决ipynb引用上层路径中的模块时�
     print('-- Add root directory "{}" to system path.'.format(pkg_rootdir))
 
 import copy
+import urllib.parse
 import numpy as np
 import pandas as pd
 
@@ -71,6 +72,218 @@ def merge_key_dbdbio_dbengines(df1, df2, save_path, on_key_pair, key_avoid_conf_
     x_words_allin_y = lambda x, y: all(x_i in y for x_i in x) if len(x) <= len(y) else False
     x_like_y = lambda x, y: x_words_concat_y(x, y) or x_words_allin_y(x, y)
 
+    def normalize_github_repo_link(repo_link):
+        if pd.isna(repo_link):
+            return ""
+        repo_link = str(repo_link).strip()
+        if repo_link.lower() in ["", "-", "--", "none", "nan"]:
+            return ""
+
+        github_prefixes = ["https://github.com/", "http://github.com/", "github.com/"]
+        repo_link_lower = repo_link.lower()
+        matched_prefix = False
+        for prefix in github_prefixes:
+            if repo_link_lower.startswith(prefix):
+                repo_link = repo_link[len(prefix):]
+                matched_prefix = True
+                break
+        if not matched_prefix and "://" in repo_link:
+            return ""
+
+        repo_link_parts = [p for p in repo_link.strip("/").split("/") if p]
+        if len(repo_link_parts) < 2:
+            return ""
+        owner = repo_link_parts[0].lower()
+        repo = repo_link_parts[1].removesuffix(".git").lower()
+        return f"{owner}/{repo}"
+
+    split_delimited_values = lambda x: [] if pd.isna(x) else [
+        elem.strip() for elem in str(x).replace(";", ",").split(",") if elem.strip()
+    ]
+
+    def split_urn_values(value):
+        if pd.isna(value):
+            return []
+        values = []
+        for value_part in split_delimited_values(value):
+            value_part = value_part.strip()
+            if value_part:
+                values.append(key_urnform(value_part))
+        return values
+
+    def choose_canonical_x_for_repo_alias(x_keys, y_key):
+        x_rows_by_key = df1.set_index(key_df1, drop=False)
+        exact_y_candidates = [x for x in x_keys if x == y_key]
+        if len(exact_y_candidates) == 1:
+            return exact_y_candidates[0], "X key equals Y key"
+
+        former_name_candidates = []
+        for x in x_keys:
+            former_names = []
+            for former_name_col in ["Former Name", "Former Names"]:
+                if former_name_col in x_rows_by_key.columns:
+                    former_names += split_urn_values(x_rows_by_key.loc[x, former_name_col])
+            if any(alias_x in former_names for alias_x in x_keys if alias_x != x):
+                former_name_candidates.append(x)
+        former_name_candidates = sorted(set(former_name_candidates))
+        if len(former_name_candidates) == 1:
+            return former_name_candidates[0], "X row declares another same-repo X row as Former Name"
+
+        repo_name_candidates = []
+        if "repo_name" in x_rows_by_key.columns:
+            for x in x_keys:
+                if key_urnform(x_rows_by_key.loc[x, "repo_name"]) in [x, y_key]:
+                    repo_name_candidates.append(x)
+        repo_name_candidates = sorted(set(repo_name_candidates))
+        if len(repo_name_candidates) == 1:
+            return repo_name_candidates[0], "X repo_name points to the canonical key"
+
+        return "", "canonical X is not unique"
+
+    def build_repo_exact_match_dict(repo_colname_pair=("github_repo_link", "github_repo_link")):
+        repo_col_df1, repo_col_df2 = repo_colname_pair[:2]
+        repo_exact_match_dict = {}
+        repo_alias_x_info_dict = {}
+        repo_exact_anomaly_records = []
+        if repo_col_df1 not in df1.columns or repo_col_df2 not in df2.columns:
+            return repo_exact_match_dict, repo_alias_x_info_dict, repo_exact_anomaly_records
+
+        def build_keys_by_repo(df, key_colname, repo_colname):
+            keys_by_repo = {}
+            for _, row in df[[key_colname, repo_colname]].iterrows():
+                repo = normalize_github_repo_link(row[repo_colname])
+                if not repo:
+                    continue
+                keys_by_repo.setdefault(repo, []).append(row[key_colname])
+            return keys_by_repo
+
+        y_rows_by_key = df2.set_index(key_df2, drop=False)
+
+        def get_repo_exact_source(y_key, repo):
+            if "Website" not in y_rows_by_key.columns:
+                return "manual"
+            for website_value in split_delimited_values(y_rows_by_key.loc[y_key, "Website"]):
+                if normalize_github_repo_link(website_value) == repo:
+                    return "web"
+            return "manual"
+
+        x_keys_by_repo = build_keys_by_repo(df1, key_df1, repo_col_df1)
+        y_keys_by_repo = build_keys_by_repo(df2, key_df2, repo_col_df2)
+        shared_repos = sorted(set(x_keys_by_repo) & set(y_keys_by_repo))
+        for repo in shared_repos:
+            x_keys = sorted(set(x_keys_by_repo[repo]))
+            y_keys = sorted(set(y_keys_by_repo[repo]))
+            if len(x_keys) == 1 and len(y_keys) == 1:
+                repo_exact_match_dict[x_keys[0]] = {
+                    "Y": y_keys[0],
+                    "repo": repo,
+                    "source": get_repo_exact_source(y_keys[0], repo)
+                }
+            elif len(x_keys) > 1 and len(y_keys) == 1:
+                canonical_x, reason = choose_canonical_x_for_repo_alias(x_keys, y_keys[0])
+                if canonical_x:
+                    repo_exact_match_dict[canonical_x] = {
+                        "Y": y_keys[0],
+                        "repo": repo,
+                        "source": get_repo_exact_source(y_keys[0], repo)
+                    }
+                    for alias_x in [x for x in x_keys if x != canonical_x]:
+                        repo_alias_x_info_dict[alias_x] = {
+                            "repo": repo,
+                            "canonical_X": canonical_x,
+                            "Y": y_keys[0],
+                            "reason": reason
+                        }
+                else:
+                    repo_exact_anomaly_records.append({
+                        "repo": repo,
+                        "X": x_keys,
+                        "Y": y_keys,
+                        "reason": reason
+                    })
+            else:
+                repo_exact_anomaly_records.append({
+                    "repo": repo,
+                    "X": x_keys,
+                    "Y": y_keys,
+                    "reason": "repo is not one-to-one between dbdb.io and db-engines"
+                })
+        return repo_exact_match_dict, repo_alias_x_info_dict, repo_exact_anomaly_records
+
+    repo_exact_match_dict, repo_alias_x_info_dict, repo_exact_anomaly_records = build_repo_exact_match_dict()
+    repo_exact_override_records = []
+    repo_alias_records = []
+
+    def normalize_website_url(website):
+        if pd.isna(website):
+            return None
+        website = str(website).strip()
+        if website.lower() in ["", "-", "--", "none", "nan"]:
+            return None
+        if "://" not in website:
+            website = "https://" + website
+        parsed_url = urllib.parse.urlsplit(website)
+        host = parsed_url.netloc.lower().strip(".")
+        if host.startswith("www."):
+            host = host[4:]
+        if not host:
+            return None
+        path = parsed_url.path.lower().strip("/")
+        for index_suffix in ["_/index.html", "index.html", "index.htm", "index.php"]:
+            if path == index_suffix:
+                path = ""
+        return {"host": host, "path": path}
+
+    def host_contains_key_label(host, key):
+        host_labels = [label for label in str(host).split(".") if label]
+        key_parts = [part for part in str(key).split("-") if part]
+        return any(part in host_labels for part in key_parts)
+
+    def path_has_safe_relation(path_x, path_y, x_key, y_key, host):
+        path_x = str(path_x).strip("/")
+        path_y = str(path_y).strip("/")
+        if path_x and path_y:
+            return (
+                path_x == path_y or
+                path_x.startswith(path_y + "/") or
+                path_y.startswith(path_x + "/")
+            )
+        return host_contains_key_label(host, x_key) or host_contains_key_label(host, y_key)
+
+    def build_website_info_by_key(df, key_colname, website_colnames):
+        website_info_by_key = {}
+        use_website_colnames = [c for c in website_colnames if c in df.columns]
+        if not use_website_colnames:
+            return website_info_by_key
+        for _, row in df[[key_colname] + use_website_colnames].iterrows():
+            websites = []
+            for website_colname in use_website_colnames:
+                for website_value in split_delimited_values(row[website_colname]):
+                    website_info = normalize_website_url(website_value)
+                    if website_info and website_info not in websites:
+                        websites.append(website_info)
+            website_info_by_key[row[key_colname]] = websites
+        return website_info_by_key
+
+    x_website_info_by_key = build_website_info_by_key(df1, key_df1, ["Website URL", "Website"])
+    y_website_info_by_key = build_website_info_by_key(df2, key_df2, ["Website"])
+    website_exact_override_records = []
+    website_exact_anomaly_records = []
+
+    def website_keys_safely_match(x_key, y_key):
+        x_websites = x_website_info_by_key.get(x_key, [])
+        y_websites = y_website_info_by_key.get(y_key, [])
+        for x_website in x_websites:
+            for y_website in y_websites:
+                if x_website["host"] != y_website["host"]:
+                    continue
+                if path_has_safe_relation(x_website["path"], y_website["path"], x_key, y_key, x_website["host"]):
+                    return True, {
+                        "X_website": x_website,
+                        "Y_website": y_website,
+                    }
+        return False, {}
+
     matched_x = []
     matched_y = []
     single_x = []
@@ -86,8 +299,72 @@ def merge_key_dbdbio_dbengines(df1, df2, save_path, on_key_pair, key_avoid_conf_
             y_key_words = y_key_str.split("-")
             if x_like_y(x_key_words, y_key_words):
                 y_key_str_matched.append(y_key_str)
+
+        repo_exact_info = repo_exact_match_dict.get(x_key_str)
+        repo_exact_y_key = repo_exact_info["Y"] if repo_exact_info else ""
+        repo_alias_info = repo_alias_x_info_dict.get(x_key_str)
+        website_exact_y_key = ""
+        website_exact_info = {}
+        if repo_exact_y_key:
+            name_matched_y_keys = list(y_key_str_matched)
+            if name_matched_y_keys and name_matched_y_keys != [repo_exact_y_key]:
+                repo_exact_override_records.append({
+                    "X": x_key_str,
+                    "repo_exact_Y": repo_exact_y_key,
+                    "name_matched_Y": name_matched_y_keys
+                })
+            y_key_str_matched = [repo_exact_y_key]
+        elif y_key_str_matched:
+            website_exact_y_infos = []
+            for y_key in y_key_str_matched:
+                website_match_flag, temp_website_exact_info = website_keys_safely_match(x_key_str, y_key)
+                if website_match_flag:
+                    website_exact_y_infos.append((y_key, temp_website_exact_info))
+            if len(website_exact_y_infos) == 1:
+                website_exact_y_key, website_exact_info = website_exact_y_infos[0]
+                if y_key_str_matched != [website_exact_y_key]:
+                    website_exact_override_records.append({
+                        "X": x_key_str,
+                        "website_exact_Y": website_exact_y_key,
+                        "name_matched_Y": y_key_str_matched,
+                        **website_exact_info
+                    })
+                y_key_str_matched = [website_exact_y_key]
+            elif len(website_exact_y_infos) > 1:
+                website_exact_anomaly_records.append({
+                    "X": x_key_str,
+                    "website_exact_Y": [y_key for y_key, _ in website_exact_y_infos],
+                    "name_matched_Y": y_key_str_matched
+                })
+
         matched_y += y_key_str_matched
-        if len(y_key_str_matched) > 1:
+        if repo_exact_y_key:
+            temp_d[dbengines_unique_name] = repo_exact_y_key
+            if str(x_key_str).lower() == str(repo_exact_y_key).lower():
+                temp_d[match_state_field] = "Normal"
+            else:
+                repo_exact_match_state = {
+                    "web": "RepoExactWeb:Normal",
+                    "manual": "RepoExactManual:Normal"
+                }.get(repo_exact_info["source"], "RepoExactManual:Normal")
+                temp_d[match_state_field] = repo_exact_match_state
+                print(f"RepoExactMatchInfo! github_repo_link pair: {x_key_str}, {repo_exact_y_key}, {repo_exact_info}")
+            temp_d[label] = "Y_auto"
+        elif website_exact_y_key:
+            temp_d[dbengines_unique_name] = website_exact_y_key
+            if str(x_key_str).lower() == str(website_exact_y_key).lower():
+                temp_d[match_state_field] = "Normal"
+            else:
+                temp_d[match_state_field] = "WebsiteExact:Normal"
+                print(f"WebsiteExactMatchInfo! website pair: {x_key_str}, {website_exact_y_key}, {website_exact_info}")
+            temp_d[label] = "Y_auto"
+        elif repo_alias_info and not y_key_str_matched:
+            temp_d[dbengines_unique_name] = None
+            temp_d[match_state_field] = f"RepoAlias[{repo_alias_info['canonical_X']}]:X_Single"
+            temp_d[label] = "Y_auto"
+            single_x.append(x_key_str)
+            repo_alias_records.append({"X": x_key_str, **repo_alias_info})
+        elif len(y_key_str_matched) > 1:
             temp_d[dbengines_unique_name] = ','.join(y_key_str_matched)
             temp_d[match_state_field] = "Multiple"
             print(f"MultiMatchWarning! x_like_y pair: {x_key_str}, {y_key_str_matched}")
@@ -126,6 +403,21 @@ def merge_key_dbdbio_dbengines(df1, df2, save_path, on_key_pair, key_avoid_conf_
     # print(f"UnmatchInfo! single_y: {single_y}")
 
     df_res[merged_key_alias] = df_res.apply(lambda series: unique_name_recalc(series[dbdbio_unique_name], series[dbengines_unique_name]), axis=1)
+    if repo_alias_records:
+        print("RepoAliasInfo! The following dbdb.io same-repo aliases were kept as X_Single rows:")
+        print(f"\t{repo_alias_records}")
+    if website_exact_anomaly_records:
+        print("WebsiteExactMatchWarning! Multiple website-matched db-engines candidates were left to the normal name matching flow:")
+        print(f"\t{website_exact_anomaly_records}")
+    if website_exact_override_records:
+        print("WebsiteExactMatchWarning! WebsiteExact overrode different name-based candidates for the following records:")
+        print(f"\t{website_exact_override_records}")
+    if repo_exact_anomaly_records:
+        print("RepoExactMatchWarning! The following shared GitHub repos are not one-to-one and were left to the normal name matching flow:")
+        print(f"\t{repo_exact_anomaly_records}")
+    if repo_exact_override_records:
+        print("RepoExactMatchWarning! RepoExact overrode different name-based candidates for the following records:")
+        print(f"\t{repo_exact_override_records}")
     if not len(df_res[merged_key_alias]) == len(set(df_res[merged_key_alias])):
         print(f"MultiValueWarning: Column {merged_key_alias} has duplicate values, please manually check the following values:")
         dup_key_index_dict = {k: tuple(d.index) for k, d in df_res.groupby(merged_key_alias) if len(d) > 1}
@@ -248,6 +540,70 @@ def merge_info_dbdbio_dbengines(df1, df2, df_feat_mapping_manulabeled, save_path
                 temp_values.append(v)
             df_res[temp_colname_df_res] = temp_values
     df_res = df_res[use_columns_merged]
+
+    def get_repo_alias_canonical_key(match_state):
+        match_state = str(match_state)
+        prefix = "RepoAlias["
+        suffix = "]:"
+        if not match_state.startswith(prefix) or suffix not in match_state:
+            return ""
+        return match_state[len(prefix):match_state.index(suffix)]
+
+    def sync_repo_alias_rows_with_canonical():
+        match_state_colname = "match_state"
+        if df_res_key not in df_res.columns or match_state_colname not in df_res.columns:
+            return
+
+        metadata_cols = {
+            df_res_key, key_df1_prefixed, key_df2_prefixed, match_state_colname, "manu_labeled_flag"
+        }
+        df_res_indexed = df_res.set_index(df_res_key, drop=False)
+        sync_records = []
+        sync_warning_records = []
+        for rec_index, rec in df_res.iterrows():
+            canonical_key = get_repo_alias_canonical_key(rec[match_state_colname])
+            if not canonical_key:
+                continue
+            if canonical_key not in df_res_indexed.index:
+                sync_warning_records.append({
+                    "alias": rec[df_res_key],
+                    "canonical": canonical_key,
+                    "reason": "canonical row is missing"
+                })
+                continue
+            canonical_rec = df_res_indexed.loc[canonical_key]
+            if isinstance(canonical_rec, pd.DataFrame):
+                sync_warning_records.append({
+                    "alias": rec[df_res_key],
+                    "canonical": canonical_key,
+                    "reason": "canonical key is duplicated"
+                })
+                continue
+
+            updated_cols = []
+            for colname in df_res.columns:
+                if colname in metadata_cols:
+                    continue
+                alias_value = df_res.loc[rec_index, colname]
+                canonical_value = canonical_rec[colname]
+                if (pd.isna(alias_value) or str(alias_value).strip() == "") and pd.notna(canonical_value):
+                    df_res.loc[rec_index, colname] = canonical_value
+                    updated_cols.append(colname)
+            if updated_cols:
+                sync_records.append({
+                    "alias": rec[df_res_key],
+                    "canonical": canonical_key,
+                    "updated_cols": updated_cols
+                })
+
+        if sync_records:
+            print("RepoAliasSyncInfo! Synced missing values from canonical rows:")
+            print(f"\t{sync_records}")
+        if sync_warning_records:
+            print("RepoAliasSyncWarning! Some repo alias rows could not be synced:")
+            print(f"\t{sync_warning_records}")
+
+    sync_repo_alias_rows_with_canonical()
     df_res.to_csv(save_path, encoding=encoding, index=False)
     print(save_path, 'saved!')
     return
